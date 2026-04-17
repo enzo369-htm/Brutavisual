@@ -240,9 +240,12 @@
 
       .section-split__text-video .section-split__text {
         color: #fff;
+        text-shadow: 2.55px 0 0 rgba(200, 40, 40, 0.342),
+          -2.55px 0 0 rgba(40, 70, 200, 0.312),
+          1.1px 1.8px 5.1px rgba(0, 0, 0, 0.154);
       }
 
-      /* Líneas: entrada escalonada + paso “semi pixel / desenfocado” */
+      /* Líneas: entrada escalonada + paso “semi pixel” (sin filter en span: evita glitches con el SVG del <p>) */
       .section-split__text-video .poster-line {
         opacity: 0;
         transform: translateY(1.1rem);
@@ -282,13 +285,11 @@
         0% {
           opacity: 0;
           transform: translateY(1.1rem) scale(0.96);
-          filter: blur(6px);
           text-shadow: none;
         }
         38% {
           opacity: 0.88;
           transform: translateY(0.15rem) scale(1.02);
-          filter: blur(2px);
           text-shadow: 3px 0 0 rgba(255, 255, 255, 0.4),
             -3px 0 0 rgba(0, 0, 0, 0.5), 1px 2px 0 rgba(255, 255, 255, 0.25),
             -1px -2px 0 rgba(0, 0, 0, 0.35);
@@ -296,8 +297,9 @@
         100% {
           opacity: 1;
           transform: translateY(0) scale(1);
-          filter: blur(0);
-          text-shadow: inherit;
+          text-shadow: 2.55px 0 0 rgba(200, 40, 40, 0.342),
+            -2.55px 0 0 rgba(40, 70, 200, 0.312),
+            1.1px 1.8px 5.1px rgba(0, 0, 0, 0.154);
         }
       }
 
@@ -305,7 +307,6 @@
         .section-split__text-video .poster-line {
           opacity: 1 !important;
           transform: none !important;
-          filter: none !important;
           animation: none !important;
         }
       }
@@ -547,29 +548,48 @@
       </div>
     </section>
 
-    <script>
+       <script>
       (function () {
         var el = document.querySelector(".section-split__text-video");
         if (!el) return;
+
+        function reveal() {
+          el.classList.add("is-visible");
+        }
+
         if (
           !("IntersectionObserver" in window) ||
           window.matchMedia("(prefers-reduced-motion: reduce)").matches
         ) {
-          el.classList.add("is-visible");
+          reveal();
           return;
         }
+
+        /* Bloque alto (~88vh): threshold 0.15 podía no disparar nunca → texto invisible */
         var io = new IntersectionObserver(
           function (entries, o) {
             entries.forEach(function (e) {
-              if (e.isIntersecting) {
-                e.target.classList.add("is-visible");
+              if (e.isIntersecting && e.intersectionRatio > 0) {
+                reveal();
                 o.unobserve(e.target);
               }
             });
           },
-          { threshold: 0.15, rootMargin: "0px 0px -6% 0px" }
+          { threshold: 0, rootMargin: "0px 0px 12% 0px" }
         );
         io.observe(el);
+
+        /* Respaldo: si el layout/IO falla, mostrar texto al cargar o tras un frame */
+        function fallbackIfStillHidden() {
+          if (!el.classList.contains("is-visible")) {
+            reveal();
+          }
+        }
+        requestAnimationFrame(function () {
+          requestAnimationFrame(fallbackIfStillHidden);
+        });
+        window.addEventListener("load", fallbackIfStillHidden, { once: true });
+        setTimeout(fallbackIfStillHidden, 2500);
       })();
     </script>
   </body>
