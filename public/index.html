@@ -267,6 +267,104 @@
           aspect-ratio: 1 / 1;
         }
       }
+
+      /* Banner sitio de muestra (footer) */
+      .sample-cta-wrap {
+        background: #e8e8e8;
+        padding: clamp(2.5rem, 6vw, 4rem) clamp(1.25rem, 4vw, 3.5rem)
+          clamp(3rem, 8vw, 5rem);
+      }
+
+      .sample-cta {
+        max-width: 920px;
+        margin: 0 auto;
+        background: #111;
+        border-radius: 24px;
+        padding: clamp(1.75rem, 4vw, 2.5rem) clamp(1.5rem, 4vw, 2.75rem);
+        color: #fff;
+      }
+
+      .sample-cta__top {
+        display: flex;
+        align-items: flex-start;
+        gap: 1.25rem;
+        flex-wrap: wrap;
+      }
+
+      .sample-cta__label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        flex-shrink: 0;
+        padding-top: 0.15rem;
+      }
+
+      .sample-cta__rule {
+        width: 1px;
+        align-self: stretch;
+        min-height: 3.25rem;
+        background: rgba(255, 255, 255, 0.22);
+        flex-shrink: 0;
+      }
+
+      .sample-cta__desc {
+        flex: 1;
+        min-width: min(100%, 220px);
+        margin: 0;
+        font-size: 0.8125rem;
+        line-height: 1.55;
+        color: #aaa;
+      }
+
+      .sample-cta__price {
+        text-align: center;
+        margin: 1.75rem 0 1.5rem;
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+        font-weight: 600;
+        color: #a65d4a;
+      }
+
+      .sample-cta__foot {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1rem 1.25rem;
+        justify-content: center;
+      }
+
+      .sample-cta__by {
+        font-size: 0.75rem;
+        color: #888;
+      }
+
+      .sample-cta__btn {
+        display: inline-block;
+        background: #fff;
+        color: #111;
+        font-size: 0.875rem;
+        font-weight: 500;
+        padding: 0.65rem 1.5rem;
+        border-radius: 999px;
+        text-decoration: none;
+      }
+
+      .sample-cta__btn:hover {
+        opacity: 0.9;
+      }
+
+      @media (max-width: 640px) {
+        .sample-cta__top {
+          flex-direction: column;
+        }
+
+        .sample-cta__rule {
+          width: 100%;
+          height: 1px;
+          min-height: 0;
+        }
+      }
     </style>
   </head>
   <body>
@@ -368,6 +466,35 @@
               playsinline
             ></video>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sample-cta-wrap" aria-label="Sitio de muestra">
+      <div class="sample-cta">
+        <div class="sample-cta__top">
+          <span class="sample-cta__label">Sitio de muestra</span>
+          <span class="sample-cta__rule" aria-hidden="true"></span>
+          <p class="sample-cta__desc">
+            Muestra para estudio creativo BRUTA: hero a pantalla completa con
+            vídeo, navbar transparente, efecto de scroll con capa fija,
+            tipografía tipo cartel y sección editorial con imagen y vídeo.
+            Maquetación en HTML5 y CSS3, JavaScript mínimo (sin framework),
+            diseño responsive y lista para publicar en Vercel.
+          </p>
+        </div>
+        <p class="sample-cta__price">
+          Valor entre 320 y 380 USD negociable
+        </p>
+        <div class="sample-cta__foot">
+          <span class="sample-cta__by">Realizado por</span>
+          <a
+            class="sample-cta__btn"
+            href="https://portfolio-web-11.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Enzo Federico — Portfolio</a
+          >
         </div>
       </div>
     </section>
