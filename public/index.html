@@ -258,13 +258,11 @@
         display: block;
         opacity: 0;
         transform: translate3d(0, 1.15rem, 0);
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
       }
 
       .section-split__text-video.is-visible .section-split__text .poster-line {
         animation: posterLineReveal 1.45s cubic-bezier(0.22, 1, 0.36, 1)
-          var(--line-delay, 0s) both forwards;
+          var(--line-delay, 0s) forwards;
       }
 
       @keyframes posterLineReveal {
@@ -316,7 +314,7 @@
 
         .section-split__text-video.is-visible .section-split__text .poster-line {
           animation: posterLineRevealReduced 0.55s ease-out
-            var(--line-delay, 0s) both forwards;
+            var(--line-delay, 0s) forwards;
         }
       }
 
@@ -580,33 +578,37 @@
         if (!block || !trigger) return;
 
         function reveal() {
-          if (block.classList.contains("is-visible")) return;
           block.classList.add("is-visible");
         }
 
         function triggerNearViewport() {
           var r = trigger.getBoundingClientRect();
           var h = window.innerHeight || document.documentElement.clientHeight;
-          return r.top < h * 0.9 && r.bottom > -h * 0.15;
+          return r.top < h * 0.95 && r.bottom > -h * 0.2;
+        }
+
+        function onShown() {
+          reveal();
         }
 
         if (!("IntersectionObserver" in window)) {
-          reveal();
+          onShown();
           return;
         }
 
+        /* px en rootMargin: algunos motores fallan con % y el IO nunca dispara */
         var io = new IntersectionObserver(
           function (entries, o) {
             entries.forEach(function (e) {
               if (e.isIntersecting && e.intersectionRatio > 0) {
-                reveal();
-                o.unobserve(trigger);
+                onShown();
+                o.unobserve(block);
               }
             });
           },
-          { threshold: 0, rootMargin: "30% 0px 30% 0px" }
+          { threshold: 0, rootMargin: "160px 0px 160px 0px" }
         );
-        io.observe(trigger);
+        io.observe(block);
 
         window.addEventListener(
           "scroll",
@@ -616,32 +618,34 @@
               return;
             }
             if (triggerNearViewport()) {
-              reveal();
+              onShown();
               window.removeEventListener("scroll", tryReveal);
             }
           },
           { passive: true }
         );
 
-        window.addEventListener(
-          "load",
-          function () {
-            if (!block.classList.contains("is-visible") && triggerNearViewport()) {
-              reveal();
-            }
-          },
-          { once: true }
-        );
-
-        if (triggerNearViewport()) {
-          requestAnimationFrame(reveal);
+        function checkLayout() {
+          if (block.classList.contains("is-visible")) return;
+          if (triggerNearViewport()) {
+            onShown();
+          }
         }
 
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", checkLayout);
+        } else {
+          checkLayout();
+        }
+
+        window.addEventListener("load", checkLayout, { once: true });
+
+        /* Si nada disparó el observer, el texto no puede quedar invisible */
         setTimeout(function () {
           if (!block.classList.contains("is-visible")) {
-            reveal();
+            onShown();
           }
-        }, 8000);
+        }, 900);
       })();
     </script>
   </body>
