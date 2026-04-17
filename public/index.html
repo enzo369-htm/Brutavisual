@@ -242,6 +242,74 @@
         color: #fff;
       }
 
+      /* Líneas: entrada escalonada + paso “semi pixel / desenfocado” */
+      .section-split__text-video .poster-line {
+        opacity: 0;
+        transform: translateY(1.1rem);
+      }
+
+      .section-split__text-video.is-visible .poster-line {
+        animation: posterLineReveal 1.05s cubic-bezier(0.22, 1, 0.36, 1)
+          forwards;
+      }
+
+      .section-split__text-video.is-visible .poster-line:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .section-split__text-video.is-visible .poster-line:nth-child(2) {
+        animation-delay: 0.14s;
+      }
+      .section-split__text-video.is-visible .poster-line:nth-child(3) {
+        animation-delay: 0.23s;
+      }
+      .section-split__text-video.is-visible .poster-line:nth-child(4) {
+        animation-delay: 0.32s;
+      }
+      .section-split__text-video.is-visible .poster-line:nth-child(5) {
+        animation-delay: 0.41s;
+      }
+      .section-split__text-video.is-visible .poster-line:nth-child(6) {
+        animation-delay: 0.5s;
+      }
+      .section-split__text-video.is-visible .poster-line:nth-child(7) {
+        animation-delay: 0.59s;
+      }
+      .section-split__text-video.is-visible .poster-line:nth-child(8) {
+        animation-delay: 0.68s;
+      }
+
+      @keyframes posterLineReveal {
+        0% {
+          opacity: 0;
+          transform: translateY(1.1rem) scale(0.96);
+          filter: blur(6px);
+          text-shadow: none;
+        }
+        38% {
+          opacity: 0.88;
+          transform: translateY(0.15rem) scale(1.02);
+          filter: blur(2px);
+          text-shadow: 3px 0 0 rgba(255, 255, 255, 0.4),
+            -3px 0 0 rgba(0, 0, 0, 0.5), 1px 2px 0 rgba(255, 255, 255, 0.25),
+            -1px -2px 0 rgba(0, 0, 0, 0.35);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+          filter: blur(0);
+          text-shadow: inherit;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .section-split__text-video .poster-line {
+          opacity: 1 !important;
+          transform: none !important;
+          filter: none !important;
+          animation: none !important;
+        }
+      }
+
       @media (max-width: 640px) {
         .section-split__text-video {
           min-height: min(78vh, 720px);
@@ -478,5 +546,31 @@
         </div>
       </div>
     </section>
+
+    <script>
+      (function () {
+        var el = document.querySelector(".section-split__text-video");
+        if (!el) return;
+        if (
+          !("IntersectionObserver" in window) ||
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+          el.classList.add("is-visible");
+          return;
+        }
+        var io = new IntersectionObserver(
+          function (entries, o) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add("is-visible");
+                o.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.15, rootMargin: "0px 0px -6% 0px" }
+        );
+        io.observe(el);
+      })();
+    </script>
   </body>
 </html>
