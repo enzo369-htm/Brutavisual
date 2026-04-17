@@ -238,84 +238,8 @@
         text-align: center;
       }
 
-      /*
-        Sin filtro SVG aquí: el blur del <p> comía el text-shadow animado
-        (no se veía el “semi pixel”). Misma rotación/sesgado que el cartel.
-      */
-      .section-split__text-video .section-split__text-wrap .section-split__text {
+      .section-split__text-video .section-split__text {
         color: #fff;
-        filter: none;
-        -webkit-filter: none;
-        will-change: transform;
-        text-rendering: auto;
-        text-shadow: 2.55px 0 0 rgba(200, 40, 40, 0.45),
-          -2.55px 0 0 rgba(40, 70, 200, 0.42),
-          1.1px 1.8px 5.1px rgba(0, 0, 0, 0.35);
-      }
-
-      /* Líneas: retraso vía --line-delay en cada <span> (evita fallos de nth-child) */
-      .section-split__text-video .section-split__text .poster-line {
-        display: block;
-        opacity: 0;
-        transform: translate3d(0, 1.15rem, 0);
-      }
-
-      .section-split__text-video.is-visible .section-split__text .poster-line {
-        animation: posterLineReveal 1.45s cubic-bezier(0.22, 1, 0.36, 1)
-          var(--line-delay, 0s) forwards;
-      }
-
-      @keyframes posterLineReveal {
-        0% {
-          opacity: 0;
-          transform: translate3d(0, 1.35rem, 0) scale(0.92);
-          text-shadow: none;
-          letter-spacing: 0.24em;
-          filter: blur(4px);
-        }
-        40% {
-          opacity: 0.95;
-          transform: translate3d(0, 0.1rem, 0) scale(1.04);
-          letter-spacing: 0.18em;
-          filter: blur(0.5px) contrast(1.35);
-          text-shadow: 6px 0 0 rgba(255, 60, 60, 0.85),
-            -6px 0 0 rgba(60, 220, 255, 0.75), 3px 2px 0 rgba(255, 255, 255, 0.55),
-            -3px -2px 0 rgba(0, 0, 0, 0.65), 2px 0 0 rgba(255, 255, 255, 0.4),
-            -2px 0 0 rgba(0, 0, 0, 0.5), 0 0 12px rgba(255, 255, 255, 0.2);
-        }
-        100% {
-          opacity: 1;
-          transform: translate3d(0, 0, 0) scale(1);
-          letter-spacing: 0.14em;
-          filter: none;
-          text-shadow: 3px 0 0 rgba(255, 80, 80, 0.55),
-            -3px 0 0 rgba(80, 190, 255, 0.5), 1.1px 1.8px 6px rgba(0, 0, 0, 0.45);
-        }
-      }
-
-      @keyframes posterLineRevealReduced {
-        0% {
-          opacity: 0;
-          transform: translate3d(0, 0.35rem, 0);
-        }
-        100% {
-          opacity: 1;
-          transform: translate3d(0, 0, 0);
-          text-shadow: 3px 0 0 rgba(255, 80, 80, 0.55),
-            -3px 0 0 rgba(80, 190, 255, 0.5), 1.1px 1.8px 6px rgba(0, 0, 0, 0.45);
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .section-split__text-video .section-split__text-wrap .section-split__text {
-          filter: none;
-          -webkit-filter: none;
-        }
-
-        .section-split__text-video.is-visible .section-split__text .poster-line {
-          animation: posterLineRevealReduced 0.55s ease-out
-            var(--line-delay, 0s) forwards;
-        }
       }
 
       @media (max-width: 640px) {
@@ -368,13 +292,43 @@
         flex-shrink: 0;
       }
 
-      .sample-cta__desc {
+      .sample-cta__copy {
         flex: 1;
         min-width: min(100%, 220px);
+        display: flex;
+        flex-direction: column;
+        gap: 0.95rem;
+      }
+
+      .sample-cta__desc {
         margin: 0;
         font-size: 0.8125rem;
         line-height: 1.55;
         color: #aaa;
+      }
+
+      .sample-cta__tech {
+        margin: 0;
+        font-size: 0.72rem;
+        line-height: 1.6;
+        color: #8e8e8e;
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        padding-top: 0.85rem;
+        letter-spacing: 0.01em;
+      }
+
+      .sample-cta__tech code {
+        font-size: 0.95em;
+        background: rgba(255, 255, 255, 0.08);
+        padding: 0.08em 0.32em;
+        border-radius: 3px;
+        color: #c5c5c5;
+      }
+
+      .sample-cta__desc strong {
+        color: #ccc;
+        font-weight: 600;
       }
 
       .sample-cta__price {
@@ -504,38 +458,22 @@
             playsinline
           ></video>
           <div class="section-split__text-video__scrim" aria-hidden="true"></div>
-          <div class="section-split__text-wrap" id="ibv-text-wrap">
+          <div class="section-split__text-wrap">
             <p class="section-split__text">
-              <span
-                class="poster-line"
-                style="--line-delay: 0s"
+              <span class="poster-line"
                 >IBV es una organización sin dominio público</span
               >
-              <span
-                class="poster-line"
-                style="--line-delay: 0.12s"
+              <span class="poster-line"
                 >basada en la manipulación y vandalización audiovisual.</span
               >
-              <span
-                class="poster-line"
-                style="--line-delay: 0.24s"
+              <span class="poster-line"
                 >4 agentes, dispositivos o ejecutores</span
               >
-              <span class="poster-line" style="--line-delay: 0.36s"
-                >que se encargan de controlar</span
-              >
-              <span class="poster-line" style="--line-delay: 0.48s"
-                >una serie de imágenes</span
-              >
-              <span class="poster-line" style="--line-delay: 0.6s"
-                >sin composición alguna,</span
-              >
-              <span class="poster-line" style="--line-delay: 0.72s"
-                >un manifiesto audiovisual</span
-              >
-              <span class="poster-line" style="--line-delay: 0.84s"
-                >entregado a la pantalla.</span
-              >
+              <span class="poster-line">que se encargan de controlar</span>
+              <span class="poster-line">una serie de imágenes</span>
+              <span class="poster-line">sin composición alguna,</span>
+              <span class="poster-line">un manifiesto audiovisual</span>
+              <span class="poster-line">entregado a la pantalla.</span>
             </p>
           </div>
         </div>
@@ -547,13 +485,31 @@
         <div class="sample-cta__top">
           <span class="sample-cta__label">Sitio de muestra</span>
           <span class="sample-cta__rule" aria-hidden="true"></span>
-          <p class="sample-cta__desc">
-            Muestra para estudio creativo BRUTA: hero a pantalla completa con
-            vídeo, navbar transparente, efecto de scroll con capa fija,
-            tipografía tipo cartel y sección editorial con imagen y vídeo.
-            Maquetación en HTML5 y CSS3, JavaScript mínimo (sin framework),
-            diseño responsive y lista para publicar en Vercel.
-          </p>
+          <div class="sample-cta__copy">
+            <p class="sample-cta__desc">
+              Muestra para el estudio creativo <strong>IBV</strong>, tomando
+              como referencia sitios de estudios internacionales y el material
+              audiovisual publicado en el Instagram de IBV. El propósito es
+              ofrecer una <strong>base navegable</strong> del futuro sitio: un
+              punto de partida para <strong>proyectar</strong> arquitectura,
+              tono visual y prioridades de contenido, y
+              <strong>co-crear</strong> el producto final junto a quienes
+              lideran el negocio.
+            </p>
+            <p class="sample-cta__tech">
+              <strong>Implementación:</strong> HTML5 semántico; CSS3 (Flexbox,
+              Grid, unidades <code>vh</code>/<code>clamp()</code>, capas con
+              <code>z-index</code>, hero <code>position: fixed</code> + bloque
+              que “sube” al scroll); tipografía vía Google Fonts (Inter,
+              Oswald); tratamiento de texto con filtros SVG
+              (<code>feGaussianBlur</code>) y sombras; vídeo en hero y secciones
+              (<code>autoplay</code> <code>muted</code> <code>loop</code>
+              <code>playsinline</code>); sin framework de UI ni bundler.
+              <strong>Deploy:</strong> sitio estático servido desde
+              <code>public/</code> en <strong>Vercel</strong>, integración
+              <strong>GitHub → CI</strong> (push a <code>main</code>).
+            </p>
+          </div>
         </div>
         <p class="sample-cta__price">
           Valor entre 320 y 380 USD negociable
@@ -570,83 +526,5 @@
         </div>
       </div>
     </section>
-
-    <script>
-      (function () {
-        var block = document.querySelector(".section-split__text-video");
-        var trigger = document.getElementById("ibv-text-wrap");
-        if (!block || !trigger) return;
-
-        function reveal() {
-          block.classList.add("is-visible");
-        }
-
-        function triggerNearViewport() {
-          var r = trigger.getBoundingClientRect();
-          var h = window.innerHeight || document.documentElement.clientHeight;
-          return r.top < h * 0.95 && r.bottom > -h * 0.2;
-        }
-
-        function onShown() {
-          reveal();
-        }
-
-        if (!("IntersectionObserver" in window)) {
-          onShown();
-          return;
-        }
-
-        /* px en rootMargin: algunos motores fallan con % y el IO nunca dispara */
-        var io = new IntersectionObserver(
-          function (entries, o) {
-            entries.forEach(function (e) {
-              if (e.isIntersecting && e.intersectionRatio > 0) {
-                onShown();
-                o.unobserve(block);
-              }
-            });
-          },
-          { threshold: 0, rootMargin: "160px 0px 160px 0px" }
-        );
-        io.observe(block);
-
-        window.addEventListener(
-          "scroll",
-          function tryReveal() {
-            if (block.classList.contains("is-visible")) {
-              window.removeEventListener("scroll", tryReveal);
-              return;
-            }
-            if (triggerNearViewport()) {
-              onShown();
-              window.removeEventListener("scroll", tryReveal);
-            }
-          },
-          { passive: true }
-        );
-
-        function checkLayout() {
-          if (block.classList.contains("is-visible")) return;
-          if (triggerNearViewport()) {
-            onShown();
-          }
-        }
-
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", checkLayout);
-        } else {
-          checkLayout();
-        }
-
-        window.addEventListener("load", checkLayout, { once: true });
-
-        /* Si nada disparó el observer, el texto no puede quedar invisible */
-        setTimeout(function () {
-          if (!block.classList.contains("is-visible")) {
-            onShown();
-          }
-        }, 900);
-      })();
-    </script>
   </body>
 </html>
