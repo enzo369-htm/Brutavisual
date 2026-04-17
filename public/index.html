@@ -268,8 +268,11 @@
         }
       }
 
-      /* Banner sitio de muestra (footer) */
+      /* Banner sitio de muestra (footer): por encima del hero fijo (z-index) */
       .sample-cta-wrap {
+        position: relative;
+        z-index: 2;
+        isolation: isolate;
         background: #e8e8e8;
         padding: clamp(2.5rem, 6vw, 4rem) clamp(1.25rem, 4vw, 3.5rem)
           clamp(3rem, 8vw, 5rem);
