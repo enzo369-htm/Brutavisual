@@ -145,14 +145,6 @@
         }
       }
 
-      .section-split__col--text .section-split__text {
-        max-width: 100%;
-      }
-
-      .section-split__col--text {
-        overflow: visible;
-      }
-
       /*
         Efecto “cartel roto”: filtro SVG (se ve igual en Chrome/Safari) + giro fuerte.
         El blur va en el <p>, no en el wrapper (así no se come las sombras).
@@ -185,47 +177,6 @@
         }
       }
 
-      .section-split__grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: clamp(2rem, 5vw, 4.5rem);
-        align-items: stretch;
-        max-width: 1400px;
-        margin: 0 auto;
-      }
-
-      .section-split__col--text,
-      .section-split__col--video {
-        display: flex;
-        flex-direction: column;
-        min-height: 0;
-      }
-
-      .section-split__col--video {
-        height: 100%;
-      }
-
-      .section-split__col--video .section-split__video-wrap {
-        flex: 1 1 auto;
-        display: flex;
-        flex-direction: column;
-        min-height: 0;
-      }
-
-      @media (max-width: 900px) {
-        .section-split__grid {
-          grid-template-columns: 1fr;
-        }
-
-        .section-split__video-wrap {
-          width: 100%;
-        }
-
-        .section-split__col--video .section-split__video-wrap {
-          flex: 0 0 auto;
-        }
-      }
-
       .section-split__media {
         width: 100%;
         display: block;
@@ -243,28 +194,57 @@
         vertical-align: top;
       }
 
-      .section-split__video-wrap {
-        width: 100%;
-        max-width: 100%;
+      /* Texto sobre vídeo (bloque centrado, video de fondo) */
+      .section-split__text-video-outer {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 clamp(1.25rem, 4vw, 3.5rem);
       }
 
-      .section-split__video-wrap video {
+      .section-split__text-video {
+        position: relative;
+        min-height: min(88vh, 960px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(2rem, 6vw, 4rem);
+        overflow: hidden;
+        border-radius: 2px;
+      }
+
+      .section-split__text-video__video {
+        position: absolute;
+        inset: 0;
         width: 100%;
-        flex: 1 1 auto;
-        min-height: 100%;
         height: 100%;
-        aspect-ratio: unset;
         object-fit: cover;
-        display: block;
-        background: #e8e8e8;
+        z-index: 0;
+        background: #111;
       }
 
-      @media (max-width: 900px) {
-        .section-split__video-wrap video {
-          flex: 0 0 auto;
-          height: auto;
-          min-height: unset;
-          aspect-ratio: 1 / 1;
+      .section-split__text-video__scrim {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: rgba(0, 0, 0, 0.42);
+        pointer-events: none;
+      }
+
+      .section-split__text-video .section-split__text-wrap {
+        position: relative;
+        z-index: 2;
+        max-width: min(48rem, 100%);
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .section-split__text-video .section-split__text {
+        color: #fff;
+      }
+
+      @media (max-width: 640px) {
+        .section-split__text-video {
+          min-height: min(78vh, 720px);
         }
       }
 
@@ -436,9 +416,18 @@
           />
         </div>
       </div>
-      <!-- 3) texto a la izquierda, vídeo a la derecha -->
-      <div class="section-split__grid">
-        <div class="section-split__col section-split__col--text">
+      <!-- Texto centrado con vídeo de fondo -->
+      <div class="section-split__text-video-outer">
+        <div class="section-split__text-video">
+          <video
+            class="section-split__text-video__video"
+            src="video bruta1.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+          ></video>
+          <div class="section-split__text-video__scrim" aria-hidden="true"></div>
           <div class="section-split__text-wrap">
             <p class="section-split__text">
               <span class="poster-line"
@@ -456,18 +445,6 @@
               <span class="poster-line">un manifiesto audiovisual</span>
               <span class="poster-line">entregado a la pantalla.</span>
             </p>
-          </div>
-        </div>
-        <div class="section-split__col section-split__col--video">
-          <div class="section-split__video-wrap">
-            <video
-              class="section-split__media"
-              src="video bruta1.mp4"
-              autoplay
-              muted
-              loop
-              playsinline
-            ></video>
           </div>
         </div>
       </div>
