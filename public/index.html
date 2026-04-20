@@ -174,8 +174,13 @@
       /*
         Bloque manifiesto alineado al mismo ancho máximo que la imagen (cartel).
       */
+      .section-split__manifesto-block {
+        overflow: visible;
+      }
+
       .section-split__manifesto-block .section-split__text-wrap {
         width: 100%;
+        overflow: visible;
       }
 
       .section-split__manifesto-block .section-split__text {
@@ -232,22 +237,34 @@
         border-bottom: 2px solid rgba(0, 0, 0, 0.42);
       }
 
-      .manifiesto-line__hit:hover {
-        opacity: 0.88;
+      /* Por encima del a:hover global (opacity 0.75) para no matar el titileo */
+      a.manifiesto-line__hit:hover {
+        opacity: 1;
         border-bottom-color: rgba(0, 0, 0, 0.65);
       }
 
+      /*
+        A la izquierda de la palabra, centrado en su altura: no va arriba (no tapa renglones).
+        Empujamos más a la izquierda para despegar del bloque de texto.
+      */
       .manifiesto-line__extras {
         position: absolute;
-        left: 0;
-        bottom: 100%;
+        top: 50%;
+        right: 100%;
+        left: auto;
+        bottom: auto;
         display: flex;
         flex-direction: row;
-        align-items: flex-end;
-        gap: 0;
-        margin-bottom: 0.5rem;
-        transform: translateX(calc(-1 * clamp(0.5rem, 4vw, 3rem)));
+        align-items: center;
+        gap: 0.15rem;
+        margin-right: clamp(0.35rem, 1.2vw, 0.85rem);
+        padding-right: 0.15rem;
+        transform: translateY(-50%)
+          translateX(
+            calc(-1 * clamp(1.5rem, 6vw, 5.5rem))
+          );
         pointer-events: none;
+        white-space: nowrap;
       }
 
       .manifiesto-line__peek {
@@ -257,78 +274,77 @@
         flex-shrink: 0;
         border: 1px solid rgba(0, 0, 0, 0.32);
         box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
-        animation: manifiesto-peek-glitch 2.35s step-end infinite;
+        will-change: opacity, transform, filter;
+        animation: manifiesto-peek-glitch 1.45s ease-in-out infinite;
       }
 
+      /* Línea casi horizontal: desde la miniatura hacia la M de MANIFIESTO (punta hacia la palabra) */
       .manifiesto-line__arrow {
         flex-shrink: 0;
-        margin: 0 0 0.35rem -0.15rem;
-        width: clamp(3rem, 11vw, 6.5rem);
-        height: auto;
+        width: clamp(2.75rem, 10vw, 6.25rem);
+        height: 1.35rem;
         color: #111;
-        opacity: 0.72;
+        opacity: 0.78;
       }
 
       .manifiesto-line__word {
         display: inline-block;
-        animation: manifiesto-word-blink 1.15s step-end infinite;
+        will-change: opacity, filter;
+        animation: manifiesto-word-blink 1.05s ease-in-out infinite;
       }
 
       @keyframes manifiesto-word-blink {
-        0% {
-          opacity: 1;
-        }
-        35% {
-          opacity: 0.18;
-        }
-        70% {
-          opacity: 1;
-        }
-        82% {
-          opacity: 0.35;
-        }
+        0%,
         100% {
           opacity: 1;
+          filter: none;
+        }
+        40% {
+          opacity: 0.22;
+          filter: brightness(1.35) contrast(1.05);
+        }
+        48% {
+          opacity: 0.95;
+          filter: none;
+        }
+        72% {
+          opacity: 0.35;
+          filter: brightness(1.25);
         }
       }
 
       @keyframes manifiesto-peek-glitch {
-        0% {
+        0%,
+        100% {
           opacity: 1;
-          transform: translate(0, 0);
+          transform: translate(0, 0) scale(1);
+          filter: none;
+          box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+        }
+        15% {
+          opacity: 0.45;
+          transform: translate(2px, -2px) scale(1.03);
+          filter: contrast(1.35) saturate(1.1);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+        }
+        30% {
+          opacity: 0.88;
+          transform: translate(-3px, 1px) scale(0.97);
           filter: none;
         }
-        8% {
-          opacity: 0.72;
-          transform: translate(2px, -1px);
-        }
-        16% {
-          opacity: 1;
-          transform: translate(-2px, 1px);
-          filter: contrast(1.18);
-        }
-        24% {
-          opacity: 0.85;
-          transform: translate(0, 0);
-          filter: none;
-        }
-        48% {
-          opacity: 1;
-        }
-        52% {
-          opacity: 0.25;
-          transform: translate(3px, 0);
-        }
-        56% {
-          opacity: 0.95;
-          transform: translate(-3px, 0);
+        45% {
+          opacity: 0.28;
+          transform: translate(4px, 0) scale(1.02);
+          filter: contrast(1.2);
         }
         60% {
           opacity: 1;
-          transform: translate(0, 0);
+          transform: translate(0, 0) scale(1);
+          filter: none;
         }
-        100% {
-          opacity: 1;
+        78% {
+          opacity: 0.5;
+          transform: translate(-2px, -1px);
         }
       }
 
@@ -792,22 +808,22 @@
                     />
                     <svg
                       class="manifiesto-line__arrow"
-                      viewBox="0 0 96 56"
+                      viewBox="0 0 120 24"
                       aria-hidden="true"
                       focusable="false"
                     >
                       <path
-                        d="M88 48 L12 10"
+                        d="M 8 12 L 102 12"
                         fill="none"
                         stroke="currentColor"
-                        stroke-width="1.25"
+                        stroke-width="1.15"
                         stroke-linecap="round"
                       />
                       <path
-                        d="M12 10 L26 8 M12 10 L14 24"
+                        d="M 102 12 L 90 6 M 102 12 L 90 18"
                         fill="none"
                         stroke="currentColor"
-                        stroke-width="1.25"
+                        stroke-width="1.15"
                         stroke-linecap="round"
                       />
                     </svg>
