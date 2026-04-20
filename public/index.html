@@ -214,7 +214,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: clamp(1.5rem, 4vw, 2.5rem);
+        /* Sin texto encima: sin padding para dar todo el viewport al vídeo */
+        padding: 0;
         overflow: hidden;
         border-radius: 0;
       }
@@ -224,7 +225,9 @@
         inset: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        /* contain = encuadre completo sin recorte (letterbox si el ratio no coincide) */
+        object-fit: contain;
+        object-position: center;
         z-index: 0;
         background: #111;
       }
