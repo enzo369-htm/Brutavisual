@@ -1,0 +1,11 @@
+{
+  "name": "bruta-visual",
+  "private": true,
+  "scripts": {
+    "dev": "serve public -l 3000",
+    "build": "node -e \"require('fs').accessSync('public/index.html')\""
+  },
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}
