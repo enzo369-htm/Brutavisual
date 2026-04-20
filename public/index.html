@@ -46,12 +46,12 @@
         z-index: 1;
       }
 
-      .hero__video {
+      /* Vídeo(s) del hero: capa llena detrás del nav */
+      .hero .video-extend {
         position: absolute;
         inset: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover;
         z-index: 0;
       }
 
@@ -218,14 +218,26 @@
       }
 
       /*
-        Vídeo central nítido (sin zoom cover) + alas con el mismo clip duplicado
-        (cover + espejo) para llenar el ancho en monitores anchos.
+        Vídeo central nítido + alas duplicadas (cover + espejo). Usado en hero;
+        la sección inferior puede usar un solo vídeo a pantalla con cover.
       */
-      .section-split__text-video.video-extend {
+      .video-extend {
         display: flex;
         flex-direction: row;
         align-items: stretch;
         justify-content: center;
+        background: #111;
+      }
+
+      .section-split__text-video__video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        z-index: 0;
+        background: #111;
       }
 
       .video-extend__wing {
@@ -467,14 +479,36 @@
           <a href="#">Contact</a>
         </div>
       </nav>
-      <video
-        class="hero__video"
-        src="videocodemp4.mp4"
-        autoplay
-        muted
-        loop
-        playsinline
-      ></video>
+      <div class="video-extend" data-video-extend>
+        <div class="video-extend__wing" aria-hidden="true">
+          <video
+            class="video-extend__wing-video"
+            src="video11.mp4"
+            muted
+            loop
+            playsinline
+          ></video>
+        </div>
+        <div class="video-extend__center">
+          <video
+            class="video-extend__main"
+            src="video11.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+          ></video>
+        </div>
+        <div class="video-extend__wing" aria-hidden="true">
+          <video
+            class="video-extend__wing-video"
+            src="video11.mp4"
+            muted
+            loop
+            playsinline
+          ></video>
+        </div>
+      </div>
     </section>
 
     <section class="section-split" aria-label="Imagen y vídeo">
@@ -489,40 +523,17 @@
           />
         </div>
       </div>
-      <!-- Vídeo central completo + alas duplicadas (mismo archivo, sincronizado) -->
+      <!-- Vídeo que antes estaba en el hero (pantalla completa, cover) -->
       <div class="section-split__text-video-outer">
-        <div
-          class="section-split__text-video video-extend"
-          data-video-extend
-        >
-          <div class="video-extend__wing" aria-hidden="true">
-            <video
-              class="video-extend__wing-video"
-              src="video11.mp4"
-              muted
-              loop
-              playsinline
-            ></video>
-          </div>
-          <div class="video-extend__center">
-            <video
-              class="video-extend__main"
-              src="video11.mp4"
-              autoplay
-              muted
-              loop
-              playsinline
-            ></video>
-          </div>
-          <div class="video-extend__wing" aria-hidden="true">
-            <video
-              class="video-extend__wing-video"
-              src="video11.mp4"
-              muted
-              loop
-              playsinline
-            ></video>
-          </div>
+        <div class="section-split__text-video">
+          <video
+            class="section-split__text-video__video"
+            src="videocodemp4.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+          ></video>
         </div>
       </div>
     </section>
