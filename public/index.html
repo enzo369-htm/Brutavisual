@@ -17,6 +17,12 @@
         box-sizing: border-box;
       }
 
+      @media (prefers-reduced-motion: no-preference) {
+        html {
+          scroll-behavior: smooth;
+        }
+      }
+
       body {
         margin: 0;
         font-family: "Inter", system-ui, -apple-system, sans-serif;
@@ -163,6 +169,29 @@
 
       .section-split__image-block .section-split__img-wrap {
         width: 100%;
+      }
+
+      /* Ancla: el hero es fixed; dejamos aire bajo el nav al ir a #informacion */
+      #informacion {
+        scroll-margin-top: 5.5rem;
+      }
+
+      /*
+        Bloque manifiesto alineado al mismo ancho máximo que la imagen (cartel).
+      */
+      .section-split__manifesto-block .section-split__text-wrap {
+        width: 100%;
+      }
+
+      .section-split__manifesto-block .section-split__text {
+        max-width: 100%;
+        font-size: clamp(1.55rem, 3.25vw, 2.65rem);
+      }
+
+      @media (max-width: 640px) {
+        .section-split__manifesto-block .section-split__text {
+          font-size: clamp(1.1rem, 4.4vw, 1.75rem);
+        }
       }
 
       /*
@@ -546,7 +575,7 @@
         <a class="hero__brand" href="#">BRUTA</a>
         <div class="hero__menu">
           <a href="#">Proyectos</a>
-          <a href="#">Información</a>
+          <a href="#informacion">Información</a>
           <a href="#">Talleres</a>
           <a href="#">Novedades</a>
           <a href="#">Contacto</a>
@@ -585,7 +614,30 @@
     </section>
 
     <section class="section-split" aria-label="Imagen y vídeo">
-      <!-- Tras el hero:2) imagen grande -->
+      <div
+        id="informacion"
+        class="section-split__image-block section-split__manifesto-block"
+      >
+        <div class="section-split__text-wrap">
+          <p class="section-split__text">
+            <span class="poster-line"
+              >IBV es una organización sin dominio público</span
+            >
+            <span class="poster-line"
+              >basada en la manipulación y vandalización audiovisual.</span
+            >
+            <span class="poster-line"
+              >4 agentes, dispositivos o ejecutores</span
+            >
+            <span class="poster-line">que se encargan de controlar</span>
+            <span class="poster-line">una serie de imágenes</span>
+            <span class="poster-line">sin composición alguna,</span>
+            <span class="poster-line">un manifiesto audiovisual</span>
+            <span class="poster-line">entregado a la pantalla.</span>
+          </p>
+        </div>
+      </div>
+      <!-- Imagen cartel (misma grilla / ancho máximo que el bloque anterior) -->
       <div class="section-split__image-block">
         <div class="section-split__img-wrap">
           <img
