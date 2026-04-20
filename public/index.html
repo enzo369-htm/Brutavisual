@@ -34,6 +34,62 @@
         opacity: 0.75;
       }
 
+      /*
+        Aviso en viewports angostos (móvil / ventana pequeña).
+        No detecta “móvil real” al 100 %: solo ancho; es estable y no rompe el sitio.
+      */
+      .desktop-only-gate {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        html,
+        body {
+          overflow: hidden;
+          height: 100%;
+          height: 100dvh;
+        }
+
+        .desktop-only-gate {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: fixed;
+          inset: 0;
+          z-index: 99999;
+          padding: clamp(1.25rem, 5vw, 2rem);
+          background: #0a0a0a;
+          color: #f0f0f0;
+          text-align: center;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .desktop-only-gate__inner {
+          max-width: 22rem;
+        }
+
+        .desktop-only-gate__title {
+          margin: 0 0 1rem;
+          font-family: "Oswald", "Arial Narrow", sans-serif;
+          font-size: clamp(1.35rem, 5vw, 1.65rem);
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+
+        .desktop-only-gate__text {
+          margin: 0;
+          font-size: 0.9375rem;
+          line-height: 1.55;
+          color: #b0b0b0;
+        }
+
+        .desktop-only-gate__text strong {
+          color: #e8e8e8;
+          font-weight: 600;
+        }
+      }
+
       /* —— Hero (fijo: la sección blanca sube encima al hacer scroll) —— */
       .hero {
         position: fixed;
@@ -436,6 +492,23 @@
     </style>
   </head>
   <body>
+    <div
+      class="desktop-only-gate"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="desktop-only-title"
+    >
+      <div class="desktop-only-gate__inner">
+        <p id="desktop-only-title" class="desktop-only-gate__title">
+          Solo escritorio
+        </p>
+        <p class="desktop-only-gate__text">
+          Esta web está pensada para verse en
+          <strong>computadora</strong>. Para verla como corresponde, abrila
+          desde un escritorio o notebook (pantalla más ancha).
+        </p>
+      </div>
+    </div>
     <!-- Filtros SVG: el blur por CSS a veces casi no se nota; esto sí desenfoca el texto dibujado -->
     <svg
       class="svg-filters"
