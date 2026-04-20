@@ -243,113 +243,104 @@
         border-bottom-color: rgba(0, 0, 0, 0.65);
       }
 
-      /*
-        A la izquierda de la palabra, centrado en su altura: no va arriba (no tapa renglones).
-        Empujamos más a la izquierda para despegar del bloque de texto.
-      */
-      .manifiesto-line__extras {
+      /* Ancla en la M: brazo sale a ~130° hacia arriba-izquierda (origen de giro en la M) */
+      .manifiesto-line__m-anchor {
+        position: relative;
+        display: inline-block;
+      }
+
+      .manifiesto-line__arm {
         position: absolute;
-        top: 50%;
         right: 100%;
-        left: auto;
-        bottom: auto;
-        display: flex;
+        top: 50%;
+        display: inline-flex;
         flex-direction: row;
         align-items: center;
-        gap: 0.15rem;
-        margin-right: clamp(0.35rem, 1.2vw, 0.85rem);
-        padding-right: 0.15rem;
-        transform: translateY(-50%)
-          translateX(
-            calc(-1 * clamp(1.5rem, 6vw, 5.5rem))
-          );
+        flex-wrap: nowrap;
+        margin-right: 0.08em;
         pointer-events: none;
+        transform: translateY(-50%) rotate(-130deg);
+        transform-origin: right center;
         white-space: nowrap;
       }
 
+      .manifiesto-line__beam {
+        order: 2;
+        width: clamp(3.75rem, 13vw, 8.5rem);
+        height: 2px;
+        flex: 0 0 auto;
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.18),
+          rgba(0, 0, 0, 0.82)
+        );
+        border-radius: 1px;
+      }
+
       .manifiesto-line__peek {
-        width: clamp(5.5rem, 14vw, 9.25rem);
-        height: clamp(5.5rem, 14vw, 9.25rem);
+        order: 1;
+        width: clamp(5.25rem, 13vw, 9rem);
+        height: clamp(5.25rem, 13vw, 9rem);
         object-fit: cover;
-        flex-shrink: 0;
+        flex: 0 0 auto;
+        margin-right: 0.12rem;
         border: 1px solid rgba(0, 0, 0, 0.32);
         box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
-        will-change: opacity, transform, filter;
-        animation: manifiesto-peek-glitch 1.45s ease-in-out infinite;
+        transform: rotate(130deg);
       }
 
-      /* Línea casi horizontal: desde la miniatura hacia la M de MANIFIESTO (punta hacia la palabra) */
-      .manifiesto-line__arrow {
-        flex-shrink: 0;
-        width: clamp(2.75rem, 10vw, 6.25rem);
-        height: 1.35rem;
-        color: #111;
-        opacity: 0.78;
-      }
-
-      .manifiesto-line__word {
+      /*
+        Titileo muy visible: solo el texto (m + resto), no el brazo por herencia de opacity.
+        La imagen tiene keyframes propios.
+      */
+      .manifiesto-line__m-text,
+      .manifiesto-line__rest-text {
         display: inline-block;
-        will-change: opacity, filter;
-        animation: manifiesto-word-blink 1.05s ease-in-out infinite;
+        animation: titila-manifiesto-text 0.65s steps(1, end) infinite;
       }
 
-      @keyframes manifiesto-word-blink {
-        0%,
+      .manifiesto-line__peek {
+        animation: titila-manifiesto-img 0.55s steps(1, end) infinite;
+      }
+
+      @keyframes titila-manifiesto-text {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.04;
+        }
         100% {
           opacity: 1;
-          filter: none;
-        }
-        40% {
-          opacity: 0.22;
-          filter: brightness(1.35) contrast(1.05);
-        }
-        48% {
-          opacity: 0.95;
-          filter: none;
-        }
-        72% {
-          opacity: 0.35;
-          filter: brightness(1.25);
         }
       }
 
-      @keyframes manifiesto-peek-glitch {
-        0%,
+      @keyframes titila-manifiesto-img {
+        0% {
+          opacity: 1;
+          filter: none;
+          transform: rotate(130deg) translate(0, 0);
+        }
+        25% {
+          filter: contrast(1.25);
+        }
+        50% {
+          opacity: 0.05;
+          filter: contrast(1.4);
+          transform: rotate(130deg) translate(2px, -1px);
+        }
+        75% {
+          filter: none;
+        }
         100% {
           opacity: 1;
-          transform: translate(0, 0) scale(1);
-          filter: none;
-          box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
-        }
-        15% {
-          opacity: 0.45;
-          transform: translate(2px, -2px) scale(1.03);
-          filter: contrast(1.35) saturate(1.1);
-          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
-        }
-        30% {
-          opacity: 0.88;
-          transform: translate(-3px, 1px) scale(0.97);
-          filter: none;
-        }
-        45% {
-          opacity: 0.28;
-          transform: translate(4px, 0) scale(1.02);
-          filter: contrast(1.2);
-        }
-        60% {
-          opacity: 1;
-          transform: translate(0, 0) scale(1);
-          filter: none;
-        }
-        78% {
-          opacity: 0.5;
-          transform: translate(-2px, -1px);
+          transform: rotate(130deg) translate(0, 0);
         }
       }
 
       @media (prefers-reduced-motion: reduce) {
-        .manifiesto-line__word,
+        .manifiesto-line__m-text,
+        .manifiesto-line__rest-text,
         .manifiesto-line__peek {
           animation: none;
         }
@@ -796,39 +787,23 @@
               <span class="manifiesto-line__inner">
                 <span class="manifiesto-line__prefix">un </span>
                 <a href="informacion.html" class="manifiesto-line__hit">
-                  <span class="manifiesto-line__extras" aria-hidden="true">
-                    <img
-                      class="manifiesto-line__peek"
-                      src="imagen1.jpg"
-                      alt=""
-                      width="148"
-                      height="148"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <svg
-                      class="manifiesto-line__arrow"
-                      viewBox="0 0 120 24"
-                      aria-hidden="true"
-                      focusable="false"
-                    >
-                      <path
-                        d="M 8 12 L 102 12"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.15"
-                        stroke-linecap="round"
-                      />
-                      <path
-                        d="M 102 12 L 90 6 M 102 12 L 90 18"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.15"
-                        stroke-linecap="round"
-                      />
-                    </svg>
+                  <span class="manifiesto-line__word">
+                    <span class="manifiesto-line__m-anchor">
+                      <span class="manifiesto-line__m-text">m</span>
+                      <span class="manifiesto-line__arm" aria-hidden="true">
+                        <img
+                          class="manifiesto-line__peek"
+                          src="imagen1.jpg"
+                          alt=""
+                          width="160"
+                          height="160"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <span class="manifiesto-line__beam"></span>
+                      </span>
+                    </span><span class="manifiesto-line__rest-text">anifiesto</span>
                   </span>
-                  <span class="manifiesto-line__word">manifiesto</span>
                 </a>
                 <span class="manifiesto-line__suffix"> audiovisual</span>
               </span>
