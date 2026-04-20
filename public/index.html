@@ -225,8 +225,8 @@
         inset: 0;
         width: 100%;
         height: 100%;
-        /* contain = encuadre completo sin recorte (letterbox si el ratio no coincide) */
-        object-fit: contain;
+        /* Pantalla completa horizontal: cubre todo el viewport (puede recortar bordes del clip) */
+        object-fit: cover;
         object-position: center;
         z-index: 0;
         background: #111;
