@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Información — BRUTA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        background: #fff;
+        color: #111;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      a:hover {
+        opacity: 0.75;
+      }
+
+      .desktop-only-gate {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        html,
+        body {
+          overflow: hidden;
+          height: 100%;
+          height: 100dvh;
+        }
+
+        .desktop-only-gate {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: fixed;
+          inset: 0;
+          z-index: 99999;
+          padding: clamp(1.25rem, 5vw, 2rem);
+          background: #0a0a0a;
+          color: #f0f0f0;
+          text-align: center;
+        }
+
+        .desktop-only-gate__inner {
+          max-width: 22rem;
+        }
+
+        .desktop-only-gate__title {
+          margin: 0 0 1rem;
+          font-family: "Oswald", "Arial Narrow", sans-serif;
+          font-size: clamp(1.35rem, 5vw, 1.65rem);
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+
+        .desktop-only-gate__text {
+          margin: 0;
+          font-size: 0.9375rem;
+          line-height: 1.55;
+          color: #b0b0b0;
+        }
+
+        .desktop-only-gate__text strong {
+          color: #e8e8e8;
+          font-weight: 600;
+        }
+      }
+
+      .site-top {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.75rem clamp(1.25rem, 4vw, 3.5rem);
+        font-size: 0.8125rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        background: #fff;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      }
+
+      .site-top__brand {
+        font-weight: 600;
+        letter-spacing: 0.06em;
+      }
+
+      .site-top__menu {
+        display: flex;
+        flex-wrap: wrap;
+        gap: clamp(0.75rem, 3vw, 2rem);
+        justify-content: flex-end;
+      }
+
+      .site-top__menu a[aria-current="page"] {
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+      }
+
+      .page-info {
+        padding: clamp(2rem, 6vw, 4rem) clamp(1.25rem, 4vw, 3.5rem)
+          clamp(4rem, 10vw, 6rem);
+      }
+
+      .page-info__inner {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .page-info__media {
+        width: 100%;
+        height: auto;
+        display: block;
+        vertical-align: top;
+        animation: informacion-poster-glitch 3.8s step-end infinite;
+      }
+
+      @keyframes informacion-poster-glitch {
+        0%,
+        52% {
+          opacity: 1;
+          transform: translate(0, 0);
+          filter: none;
+        }
+        54% {
+          opacity: 0.92;
+          transform: translate(2px, 0);
+          filter: contrast(1.05);
+        }
+        56% {
+          opacity: 0.78;
+          transform: translate(-3px, 1px);
+        }
+        58% {
+          opacity: 1;
+          transform: translate(0, 0);
+          filter: none;
+        }
+        72% {
+          opacity: 1;
+        }
+        74% {
+          opacity: 0.55;
+          transform: translate(1px, -1px);
+        }
+        76% {
+          opacity: 1;
+          transform: translate(0, 0);
+        }
+        100% {
+          opacity: 1;
+          transform: translate(0, 0);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .page-info__media {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="desktop-only-gate"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="desktop-only-title"
+    >
+      <div class="desktop-only-gate__inner">
+        <p id="desktop-only-title" class="desktop-only-gate__title">
+          Solo escritorio
+        </p>
+        <p class="desktop-only-gate__text">
+          Esta web está pensada para verse en
+          <strong>computadora</strong>. Para verla como corresponde, abrila
+          desde un escritorio o notebook (pantalla más ancha).
+        </p>
+      </div>
+    </div>
+
+    <header class="site-top">
+      <a class="site-top__brand" href="index.html">BRUTA</a>
+      <nav class="site-top__menu" aria-label="Principal">
+        <a href="index.html">Proyectos</a>
+        <a href="informacion.html" aria-current="page">Información</a>
+        <a href="index.html">Talleres</a>
+        <a href="index.html">Novedades</a>
+        <a href="index.html">Contacto</a>
+      </nav>
+    </header>
+
+    <main class="page-info" aria-label="Información">
+      <div class="page-info__inner">
+        <img
+          class="page-info__media"
+          src="imagen1.jpg"
+          alt="Cartel IBV"
+          width="1400"
+          height="1400"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </main>
+  </body>
+</html>

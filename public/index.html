@@ -171,11 +171,6 @@
         width: 100%;
       }
 
-      /* Ancla: el hero es fixed; dejamos aire bajo el nav al ir a #informacion */
-      #informacion {
-        scroll-margin-top: 5.5rem;
-      }
-
       /*
         Bloque manifiesto alineado al mismo ancho máximo que la imagen (cartel).
       */
@@ -212,120 +207,136 @@
         }
       }
 
+      /*
+        Línea “manifiesto”: decoración arriba-izquierda, fuera del flujo del renglón.
+      */
       .poster-line--manifiesto {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: 0.05em 0.2em;
+        display: block;
+        text-align: center;
+        overflow: visible;
+        margin: clamp(1.5rem, 5vw, 3rem) 0;
+        position: relative;
+        z-index: 1;
       }
 
-      .manifiesto-row__link {
-        display: inline-flex;
-        align-items: center;
+      .manifiesto-line__inner {
+        position: relative;
+        display: inline;
+      }
+
+      .manifiesto-line__hit {
+        position: relative;
+        display: inline-block;
         color: inherit;
         text-decoration: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+        border-bottom: 2px solid rgba(0, 0, 0, 0.42);
+      }
+
+      .manifiesto-line__hit:hover {
+        opacity: 0.88;
+        border-bottom-color: rgba(0, 0, 0, 0.65);
+      }
+
+      .manifiesto-line__extras {
+        position: absolute;
+        left: 0;
+        bottom: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
         gap: 0;
+        margin-bottom: 0.5rem;
+        transform: translateX(calc(-1 * clamp(0.5rem, 4vw, 3rem)));
+        pointer-events: none;
       }
 
-      .manifiesto-row__link:hover {
-        opacity: 0.85;
-        border-bottom-color: rgba(0, 0, 0, 0.55);
-      }
-
-      .manifiesto-row__word {
-        animation: manifiesto-pulse 2.1s ease-in-out infinite;
-      }
-
-      .manifiesto-row__rail {
-        display: block;
-        width: clamp(1.75rem, 7vw, 4rem);
-        height: 1px;
-        margin: 0 0.3em;
-        background: linear-gradient(
-          90deg,
-          currentColor,
-          rgba(0, 0, 0, 0.12)
-        );
-        opacity: 0.9;
-        flex-shrink: 0;
-      }
-
-      .manifiesto-row__peek {
-        width: clamp(20px, 3.2vw, 34px);
-        height: clamp(20px, 3.2vw, 34px);
+      .manifiesto-line__peek {
+        width: clamp(5.5rem, 14vw, 9.25rem);
+        height: clamp(5.5rem, 14vw, 9.25rem);
         object-fit: cover;
         flex-shrink: 0;
-        border: 1px solid rgba(0, 0, 0, 0.28);
-        animation: manifiesto-glitch 2.6s step-end infinite;
+        border: 1px solid rgba(0, 0, 0, 0.32);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+        animation: manifiesto-peek-glitch 2.35s step-end infinite;
       }
 
-      @keyframes manifiesto-pulse {
-        0%,
+      .manifiesto-line__arrow {
+        flex-shrink: 0;
+        margin: 0 0 0.35rem -0.15rem;
+        width: clamp(3rem, 11vw, 6.5rem);
+        height: auto;
+        color: #111;
+        opacity: 0.72;
+      }
+
+      .manifiesto-line__word {
+        display: inline-block;
+        animation: manifiesto-word-blink 1.15s step-end infinite;
+      }
+
+      @keyframes manifiesto-word-blink {
+        0% {
+          opacity: 1;
+        }
+        35% {
+          opacity: 0.18;
+        }
+        70% {
+          opacity: 1;
+        }
+        82% {
+          opacity: 0.35;
+        }
         100% {
           opacity: 1;
         }
-        45% {
-          opacity: 0.5;
-        }
       }
 
-      @keyframes manifiesto-glitch {
+      @keyframes manifiesto-peek-glitch {
         0% {
           opacity: 1;
           transform: translate(0, 0);
           filter: none;
         }
-        5% {
-          opacity: 0.75;
-          transform: translate(1px, 0);
+        8% {
+          opacity: 0.72;
+          transform: translate(2px, -1px);
         }
-        10% {
+        16% {
           opacity: 1;
-          transform: translate(-1px, 1px);
-          filter: contrast(1.12) saturate(1.08);
+          transform: translate(-2px, 1px);
+          filter: contrast(1.18);
         }
-        15% {
-          opacity: 0.88;
-          transform: translate(0, -1px);
-        }
-        20% {
-          opacity: 1;
+        24% {
+          opacity: 0.85;
           transform: translate(0, 0);
           filter: none;
         }
-        55% {
+        48% {
           opacity: 1;
-          transform: translate(0, 0);
         }
-        58% {
-          opacity: 0.35;
-          transform: translate(2px, 0);
+        52% {
+          opacity: 0.25;
+          transform: translate(3px, 0);
         }
-        61% {
-          opacity: 0.9;
-          transform: translate(-2px, 0);
+        56% {
+          opacity: 0.95;
+          transform: translate(-3px, 0);
         }
-        64% {
+        60% {
           opacity: 1;
           transform: translate(0, 0);
         }
         100% {
           opacity: 1;
-          transform: translate(0, 0);
         }
       }
 
       @media (prefers-reduced-motion: reduce) {
-        .manifiesto-row__word,
-        .manifiesto-row__peek {
+        .manifiesto-line__word,
+        .manifiesto-line__peek {
           animation: none;
         }
-      }
-
-      .section-split__info-image-only {
-        padding-bottom: clamp(3rem, 8vw, 5.5rem);
       }
 
       /*
@@ -411,54 +422,6 @@
         height: auto;
         display: block;
         vertical-align: top;
-      }
-
-      .section-split__media--informacion {
-        animation: informacion-poster-glitch 3.8s step-end infinite;
-      }
-
-      @keyframes informacion-poster-glitch {
-        0%,
-        52% {
-          opacity: 1;
-          transform: translate(0, 0);
-          filter: none;
-        }
-        54% {
-          opacity: 0.92;
-          transform: translate(2px, 0);
-          filter: contrast(1.05);
-        }
-        56% {
-          opacity: 0.78;
-          transform: translate(-3px, 1px);
-        }
-        58% {
-          opacity: 1;
-          transform: translate(0, 0);
-          filter: none;
-        }
-        72% {
-          opacity: 1;
-        }
-        74% {
-          opacity: 0.55;
-          transform: translate(1px, -1px);
-        }
-        76% {
-          opacity: 1;
-          transform: translate(0, 0);
-        }
-        100% {
-          opacity: 1;
-          transform: translate(0, 0);
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .section-split__media--informacion {
-          animation: none;
-        }
       }
 
       /* Texto sobre vídeo: pantalla completa (100vh), texto centrado arriba del plano */
@@ -754,13 +717,13 @@
 
     <section class="hero" aria-label="Inicio">
       <nav class="hero__nav" aria-label="Principal">
-        <a class="hero__brand" href="#">BRUTA</a>
+        <a class="hero__brand" href="index.html">BRUTA</a>
         <div class="hero__menu">
-          <a href="#">Proyectos</a>
-          <a href="#informacion">Información</a>
-          <a href="#">Talleres</a>
-          <a href="#">Novedades</a>
-          <a href="#">Contacto</a>
+          <a href="index.html">Proyectos</a>
+          <a href="informacion.html">Información</a>
+          <a href="index.html">Talleres</a>
+          <a href="index.html">Novedades</a>
+          <a href="index.html">Contacto</a>
         </div>
       </nav>
       <div class="video-extend" data-video-extend>
@@ -795,7 +758,7 @@
       </div>
     </section>
 
-    <section class="section-split" aria-label="Manifiesto, información e imagen">
+    <section class="section-split" aria-label="Manifiesto y vídeo">
       <div class="section-split__image-block section-split__manifesto-block">
         <div
           class="section-split__text-wrap section-split__text-wrap--plain"
@@ -814,39 +777,48 @@
             <span class="poster-line">una serie de imágenes</span>
             <span class="poster-line">sin composición alguna,</span>
             <span class="poster-line poster-line--manifiesto">
-              <span class="manifiesto-row__prefix">un </span>
-              <a href="#informacion" class="manifiesto-row__link">
-                <span class="manifiesto-row__word">manifiesto</span>
-                <span class="manifiesto-row__rail" aria-hidden="true"></span>
-                <img
-                  class="manifiesto-row__peek"
-                  src="imagen1.jpg"
-                  alt=""
-                  width="40"
-                  height="40"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </a>
-              <span class="manifiesto-row__suffix"> audiovisual</span>
+              <span class="manifiesto-line__inner">
+                <span class="manifiesto-line__prefix">un </span>
+                <a href="informacion.html" class="manifiesto-line__hit">
+                  <span class="manifiesto-line__extras" aria-hidden="true">
+                    <img
+                      class="manifiesto-line__peek"
+                      src="imagen1.jpg"
+                      alt=""
+                      width="148"
+                      height="148"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <svg
+                      class="manifiesto-line__arrow"
+                      viewBox="0 0 96 56"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path
+                        d="M88 48 L12 10"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.25"
+                        stroke-linecap="round"
+                      />
+                      <path
+                        d="M12 10 L26 8 M12 10 L14 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.25"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <span class="manifiesto-line__word">manifiesto</span>
+                </a>
+                <span class="manifiesto-line__suffix"> audiovisual</span>
+              </span>
             </span>
             <span class="poster-line">entregado a la pantalla.</span>
           </p>
-        </div>
-      </div>
-      <!-- Información: por ahora solo la imagen del cartel -->
-      <div
-        id="informacion"
-        class="section-split__image-block section-split__info-image-only"
-        aria-label="Información"
-      >
-        <div class="section-split__img-wrap">
-          <img
-            class="section-split__media section-split__media--informacion"
-            src="imagen1.jpg"
-            alt="Cartel IBV"
-            loading="lazy"
-          />
         </div>
       </div>
       <!-- Vídeo que antes estaba en el hero (pantalla completa, cover) -->
