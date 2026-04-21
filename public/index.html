@@ -206,75 +206,20 @@
       }
 
       /*
-        Solo enlace + glitch legible. Evitamos el a:hover global que baja opacity.
+        Enlace manifiesto: el titileo lo maneja JS (initManifiestoGlitch) — más fiable que CSS
+        si hay “Reducir movimiento”, filtros del padre o reglas que pisan animation.
       */
       .section-split__text a.manifiesto-link {
         color: inherit;
         text-decoration: none;
         border-bottom: 1px solid rgba(0, 0, 0, 0.45);
         display: inline-block;
-        animation: manifiesto-glitch 1.05s linear infinite;
+        transition: none;
       }
 
       .section-split__text a.manifiesto-link:hover {
-        opacity: 1;
+        opacity: 1 !important;
         border-bottom-color: rgba(0, 0, 0, 0.65);
-      }
-
-      @keyframes manifiesto-glitch {
-        0%,
-        100% {
-          opacity: 1;
-          transform: translate(0, 0);
-          text-shadow: none;
-          filter: none;
-        }
-        4% {
-          opacity: 0;
-        }
-        8% {
-          opacity: 1;
-        }
-        12% {
-          opacity: 0.35;
-        }
-        16% {
-          opacity: 1;
-          text-shadow: 3px 0 0 rgba(200, 50, 50, 0.55),
-            -2px 0 0 rgba(40, 80, 220, 0.45);
-        }
-        20% {
-          text-shadow: -2px 0 0 rgba(200, 50, 50, 0.45),
-            2px 0 0 rgba(40, 80, 220, 0.5);
-          transform: translate(-1px, 0);
-        }
-        24% {
-          text-shadow: none;
-          transform: translate(1px, 0);
-        }
-        28% {
-          opacity: 0.5;
-          transform: translate(0, 0);
-        }
-        32% {
-          opacity: 1;
-          filter: contrast(1.25);
-        }
-        36% {
-          filter: none;
-        }
-        40% {
-          opacity: 0.12;
-        }
-        44% {
-          opacity: 1;
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .section-split__text a.manifiesto-link {
-          animation: none;
-        }
       }
 
       /*
@@ -850,6 +795,68 @@
             v.currentTime = main.currentTime;
           });
         });
+      })();
+    </script>
+    <script>
+      (function () {
+        function initManifiestoGlitch() {
+          var el = document.querySelector("a.manifiesto-link");
+          if (!el) return;
+
+          var reduce = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+          ).matches;
+          var ms = reduce ? 720 : 340;
+          var on = true;
+          var paused = false;
+
+          el.style.setProperty("animation", "none", "important");
+          el.style.setProperty("-webkit-animation", "none", "important");
+
+          function tick() {
+            if (paused) return;
+            on = !on;
+            if (on) {
+              el.style.setProperty("opacity", "1", "important");
+              el.style.setProperty("text-shadow", "none", "important");
+              el.style.setProperty("filter", "none", "important");
+              el.style.setProperty("transform", "none", "important");
+            } else {
+              el.style.setProperty(
+                "opacity",
+                reduce ? "0.42" : "0.03",
+                "important"
+              );
+              el.style.setProperty(
+                "text-shadow",
+                "3px 0 0 rgba(195, 40, 40, 0.55), -3px 0 0 rgba(45, 70, 205, 0.5)",
+                "important"
+              );
+              if (!reduce) {
+                el.style.setProperty("filter", "contrast(1.45)", "important");
+              }
+            }
+          }
+
+          tick();
+          setInterval(tick, ms);
+
+          el.addEventListener("mouseenter", function () {
+            paused = true;
+            el.style.setProperty("opacity", "1", "important");
+            el.style.setProperty("text-shadow", "none", "important");
+            el.style.setProperty("filter", "none", "important");
+          });
+          el.addEventListener("mouseleave", function () {
+            paused = false;
+          });
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initManifiestoGlitch);
+        } else {
+          initManifiestoGlitch();
+        }
       })();
     </script>
   </body>
