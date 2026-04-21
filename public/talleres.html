@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Información — BRUTA</title>
+    <title>Talleres — BRUTA</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -20,8 +20,8 @@
       body {
         margin: 0;
         font-family: "Inter", system-ui, -apple-system, sans-serif;
-        background: #fff;
-        color: #111;
+        background: #000;
+        color: #fff;
         -webkit-font-smoothing: antialiased;
       }
 
@@ -96,8 +96,8 @@
         font-size: 0.8125rem;
         font-weight: 500;
         letter-spacing: 0.02em;
-        background: #fff;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        background: rgba(0, 0, 0, 0.88);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       }
 
       .site-top__brand {
@@ -117,66 +117,24 @@
         text-underline-offset: 0.2em;
       }
 
-      .page-info {
-        padding: clamp(2rem, 6vw, 4rem) clamp(1.25rem, 4vw, 3.5rem)
-          clamp(4rem, 10vw, 6rem);
-      }
-
-      .page-info__inner {
-        max-width: 1400px;
-        margin: 0 auto;
-      }
-
-      .page-info__media {
+      .taller-panel {
+        position: relative;
         width: 100%;
-        height: auto;
+        height: 100vh;
+        height: 100dvh;
+        min-height: 100vh;
+        min-height: 100dvh;
+        margin: 0;
+        padding: 0;
+        background: #000;
+        overflow: hidden;
+      }
+
+      .taller-panel video {
         display: block;
-        vertical-align: top;
-        animation: informacion-poster-glitch 3.8s step-end infinite;
-      }
-
-      @keyframes informacion-poster-glitch {
-        0%,
-        52% {
-          opacity: 1;
-          transform: translate(0, 0);
-          filter: none;
-        }
-        54% {
-          opacity: 0.92;
-          transform: translate(2px, 0);
-          filter: contrast(1.05);
-        }
-        56% {
-          opacity: 0.78;
-          transform: translate(-3px, 1px);
-        }
-        58% {
-          opacity: 1;
-          transform: translate(0, 0);
-          filter: none;
-        }
-        72% {
-          opacity: 1;
-        }
-        74% {
-          opacity: 0.55;
-          transform: translate(1px, -1px);
-        }
-        76% {
-          opacity: 1;
-          transform: translate(0, 0);
-        }
-        100% {
-          opacity: 1;
-          transform: translate(0, 0);
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .page-info__media {
-          animation: none;
-        }
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
     </style>
   </head>
@@ -203,25 +161,83 @@
       <a class="site-top__brand" href="index.html">BRUTA</a>
       <nav class="site-top__menu" aria-label="Principal">
         <a href="index.html">Proyectos</a>
-        <a href="informacion.html" aria-current="page">Información</a>
-        <a href="talleres.html">Talleres</a>
+        <a href="informacion.html">Información</a>
+        <a href="talleres.html" aria-current="page">Talleres</a>
         <a href="index.html">Novedades</a>
         <a href="index.html">Contacto</a>
       </nav>
     </header>
 
-    <main class="page-info" aria-label="Información">
-      <div class="page-info__inner">
-        <img
-          class="page-info__media"
-          src="imagen1.jpg"
-          alt="Cartel IBV"
-          width="1400"
-          height="1400"
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
+    <main aria-label="Talleres">
+      <section
+        id="taller-panel-1"
+        class="taller-panel"
+        aria-label="Taller BRUTA — parte uno"
+      >
+        <video
+          id="video-taller-1"
+          src="taller BRUTA.mp4"
+          playsinline
+          muted
+          autoplay
+          preload="auto"
+        ></video>
+      </section>
+      <section
+        id="taller-panel-2"
+        class="taller-panel"
+        aria-label="Taller BRUTA — parte dos"
+      >
+        <video
+          id="video-taller-2"
+          src="Taller BRUTA 2.mp4"
+          playsinline
+          preload="auto"
+        ></video>
+      </section>
     </main>
+
+    <script>
+      (function () {
+        var v1 = document.getElementById("video-taller-1");
+        var v2 = document.getElementById("video-taller-2");
+        var p2 = document.getElementById("taller-panel-2");
+        if (!v1 || !v2 || !p2) return;
+
+        var reduceMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        function tryPlayMuted(el) {
+          el.muted = true;
+          var p = el.play();
+          if (p && p.catch) {
+            p.catch(function () {});
+          }
+        }
+
+        v1.addEventListener("ended", function () {
+          p2.scrollIntoView({
+            behavior: reduceMotion ? "auto" : "smooth",
+            block: "start",
+          });
+          v2.currentTime = 0;
+          v2.muted = false;
+          var playSecond = v2.play();
+          if (playSecond && playSecond.catch) {
+            playSecond.catch(function () {
+              tryPlayMuted(v2);
+            });
+          }
+        });
+
+        var first = v1.play();
+        if (first && first.catch) {
+          first.catch(function () {
+            tryPlayMuted(v1);
+          });
+        }
+      })();
+    </script>
   </body>
 </html>
