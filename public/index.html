@@ -147,6 +147,11 @@
         justify-content: flex-end;
       }
 
+      .hero__menu-placeholder {
+        cursor: default;
+        user-select: none;
+      }
+
       /* —— Sección dos (empieza debajo del viewport y sube al hacer scroll) —— */
       .section-split {
         position: relative;
@@ -620,11 +625,11 @@
       <nav class="hero__nav" aria-label="Principal">
         <a class="hero__brand" href="index.html">BRUTA</a>
         <div class="hero__menu">
-          <a href="index.html">Proyectos</a>
+          <span class="hero__menu-placeholder">Proyectos</span>
           <a href="informacion.html">Información</a>
           <a href="talleres.html">Talleres</a>
-          <a href="index.html">Novedades</a>
-          <a href="index.html">Contacto</a>
+          <span class="hero__menu-placeholder">Novedades</span>
+          <span class="hero__menu-placeholder">Contacto</span>
         </div>
       </nav>
       <div class="video-extend" data-video-extend>
