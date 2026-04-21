@@ -330,13 +330,19 @@
         vertical-align: top;
       }
 
-      /* Vídeo IBM: tamaño contenido, centrado, marco blanco (sin cover a pantalla) */
+      /* Vídeo IBM: banda blanca ≥ alto de pantalla para aislar del manifiesto y del CTA */
       .section-split__text-video-outer {
         width: 100vw;
         max-width: none;
         margin-left: calc(50% - 50vw);
         margin-right: calc(50% - 50vw);
-        padding: clamp(2.5rem, 8vw, 5rem) clamp(1.25rem, 4vw, 2rem);
+        box-sizing: border-box;
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(4rem, 14vh, 10rem) clamp(1.5rem, 5vw, 2.5rem);
         background: #fff;
         /* Cierra el hueco del padding inferior de .section-split para pegar al footer */
         margin-bottom: calc(-1 * clamp(4rem, 10vw, 6rem));
@@ -346,10 +352,11 @@
         position: relative;
         min-height: 0;
         height: auto;
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: clamp(1rem, 3vw, 2rem);
+        padding: clamp(1.5rem, 4vh, 2.5rem);
         overflow: visible;
         border-radius: 0;
         background: #fff;
