@@ -176,6 +176,7 @@
       */
       .section-split__manifesto-block {
         overflow: visible;
+        padding-inline: clamp(1.25rem, 7vw, 6rem);
       }
 
       .section-split__manifesto-block .section-split__text-wrap {
@@ -234,107 +235,120 @@
         display: inline-block;
         color: inherit;
         text-decoration: none;
-        border-bottom: 2px solid rgba(0, 0, 0, 0.42);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.38);
       }
 
-      /* Por encima del a:hover global (opacity 0.75) para no matar el titileo */
       a.manifiesto-line__hit:hover {
         opacity: 1;
-        border-bottom-color: rgba(0, 0, 0, 0.65);
+        border-bottom-color: rgba(0, 0, 0, 0.55);
       }
 
-      /* Ancla en la M: brazo sale a ~130° hacia arriba-izquierda (origen de giro en la M) */
+      /*
+        Referencia mockup: línea fina desde la esquina superior izquierda de la M,
+        ~130° hacia arriba-izquierda; imagen al final, en el margen blanco.
+      */
       .manifiesto-line__m-anchor {
         position: relative;
         display: inline-block;
+        z-index: 1;
       }
 
       .manifiesto-line__arm {
         position: absolute;
-        right: 100%;
-        top: 50%;
+        left: 0;
+        top: 0.04em;
         display: inline-flex;
         flex-direction: row;
         align-items: center;
         flex-wrap: nowrap;
-        margin-right: 0.08em;
         pointer-events: none;
-        transform: translateY(-50%) rotate(-130deg);
-        transform-origin: right center;
+        transform-origin: left top;
+        transform: rotate(-130deg);
         white-space: nowrap;
       }
 
+      /* Trazo: arranca en la M (origen del brazo) y llega a la miniatura */
       .manifiesto-line__beam {
-        order: 2;
-        width: clamp(3.75rem, 13vw, 8.5rem);
-        height: 2px;
+        order: 1;
+        width: clamp(4.25rem, 14vw, 9.5rem);
+        height: 1.5px;
         flex: 0 0 auto;
-        background: linear-gradient(
-          90deg,
-          rgba(0, 0, 0, 0.18),
-          rgba(0, 0, 0, 0.82)
-        );
-        border-radius: 1px;
+        background: rgba(0, 0, 0, 0.52);
+        border-radius: 0.5px;
       }
 
       .manifiesto-line__peek {
-        order: 1;
-        width: clamp(5.25rem, 13vw, 9rem);
-        height: clamp(5.25rem, 13vw, 9rem);
+        order: 2;
+        width: clamp(6.25rem, 15vw, 10.5rem);
+        height: clamp(6.25rem, 15vw, 10.5rem);
         object-fit: cover;
         flex: 0 0 auto;
-        margin-right: 0.12rem;
-        border: 1px solid rgba(0, 0, 0, 0.32);
-        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+        margin-left: 0.1rem;
+        border: 1px solid rgba(0, 0, 0, 0.28);
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
         transform: rotate(130deg);
       }
 
-      /*
-        Titileo muy visible: solo el texto (m + resto), no el brazo por herencia de opacity.
-        La imagen tiene keyframes propios.
-      */
+      /* Titileo sincronizado en “manifiesto” (m + resto) */
       .manifiesto-line__m-text,
       .manifiesto-line__rest-text {
-        display: inline-block;
-        animation: titila-manifiesto-text 0.65s steps(1, end) infinite;
+        animation: manifiesto-mockup-glitch 0.72s steps(1, end) infinite;
+      }
+
+      @keyframes manifiesto-mockup-glitch {
+        0% {
+          opacity: 1;
+          filter: none;
+        }
+        12% {
+          opacity: 0.92;
+          filter: contrast(1.15);
+        }
+        24% {
+          opacity: 0.08;
+          filter: brightness(1.2);
+        }
+        36% {
+          opacity: 1;
+          filter: none;
+        }
+        48% {
+          opacity: 0.15;
+        }
+        60% {
+          opacity: 1;
+        }
+        72% {
+          opacity: 0.06;
+          filter: contrast(1.35);
+        }
+        84% {
+          opacity: 0.95;
+          filter: none;
+        }
+        100% {
+          opacity: 1;
+        }
       }
 
       .manifiesto-line__peek {
-        animation: titila-manifiesto-img 0.55s steps(1, end) infinite;
+        animation-name: manifiesto-mockup-glitch, manifiesto-peek-nudge;
+        animation-duration: 0.72s, 0.72s;
+        animation-timing-function: steps(1, end), steps(1, end);
+        animation-iteration-count: infinite, infinite;
+        will-change: opacity, transform, filter;
       }
 
-      @keyframes titila-manifiesto-text {
-        0% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.04;
-        }
+      @keyframes manifiesto-peek-nudge {
+        0%,
         100% {
-          opacity: 1;
-        }
-      }
-
-      @keyframes titila-manifiesto-img {
-        0% {
-          opacity: 1;
-          filter: none;
           transform: rotate(130deg) translate(0, 0);
         }
-        25% {
-          filter: contrast(1.25);
+        24% {
+          transform: rotate(130deg) translate(2px, -2px);
         }
-        50% {
-          opacity: 0.05;
-          filter: contrast(1.4);
-          transform: rotate(130deg) translate(2px, -1px);
-        }
-        75% {
-          filter: none;
-        }
-        100% {
-          opacity: 1;
-          transform: rotate(130deg) translate(0, 0);
+        72% {
+          transform: rotate(130deg) translate(-2px, 1px);
         }
       }
 
@@ -775,8 +789,9 @@
               >IBV es una organización sin dominio público</span
             >
             <span class="poster-line"
-              >basada en la manipulación y vandalización audiovisual.</span
+              >basada en la manipulación y vandalización</span
             >
+            <span class="poster-line">audiovisual.</span>
             <span class="poster-line"
               >4 agentes, dispositivos o ejecutores</span
             >
