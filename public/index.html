@@ -176,7 +176,6 @@
       */
       .section-split__manifesto-block {
         overflow: visible;
-        padding-inline: clamp(1.25rem, 7vw, 6rem);
       }
 
       .section-split__manifesto-block .section-split__text-wrap {
@@ -195,167 +194,85 @@
         }
       }
 
-      /* Manifiesto: sin blur, giro ni sombras de “cartel roto” */
-      .section-split__text-wrap--plain .section-split__text {
-        transform: none;
-        filter: none;
-        -webkit-filter: none;
-        opacity: 1;
-        text-shadow: none;
-        will-change: auto;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .section-split__text-wrap--plain .section-split__text {
-          transform: none;
-          filter: none;
-          -webkit-filter: none;
-        }
-      }
-
-      /*
-        Línea “manifiesto”: decoración arriba-izquierda, fuera del flujo del renglón.
-      */
       .poster-line--manifiesto {
         display: block;
         text-align: center;
         overflow: visible;
         margin: clamp(1.5rem, 5vw, 3rem) 0;
-        position: relative;
-        z-index: 1;
       }
 
       .manifiesto-line__inner {
-        position: relative;
         display: inline;
       }
 
-      .manifiesto-line__hit {
-        position: relative;
-        display: inline-block;
+      /*
+        Solo enlace + glitch legible. Evitamos el a:hover global que baja opacity.
+      */
+      .section-split__text a.manifiesto-link {
         color: inherit;
         text-decoration: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.38);
-      }
-
-      a.manifiesto-line__hit:hover {
-        opacity: 1;
-        border-bottom-color: rgba(0, 0, 0, 0.55);
-      }
-
-      /*
-        Referencia mockup: línea fina desde la esquina superior izquierda de la M,
-        ~130° hacia arriba-izquierda; imagen al final, en el margen blanco.
-      */
-      .manifiesto-line__m-anchor {
-        position: relative;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.45);
         display: inline-block;
-        z-index: 1;
+        animation: manifiesto-glitch 1.05s linear infinite;
       }
 
-      .manifiesto-line__arm {
-        position: absolute;
-        left: 0;
-        top: 0.04em;
-        display: inline-flex;
-        flex-direction: row;
-        align-items: center;
-        flex-wrap: nowrap;
-        pointer-events: none;
-        transform-origin: left top;
-        transform: rotate(-130deg);
-        white-space: nowrap;
+      .section-split__text a.manifiesto-link:hover {
+        opacity: 1;
+        border-bottom-color: rgba(0, 0, 0, 0.65);
       }
 
-      /* Trazo: arranca en la M (origen del brazo) y llega a la miniatura */
-      .manifiesto-line__beam {
-        order: 1;
-        width: clamp(4.25rem, 14vw, 9.5rem);
-        height: 1.5px;
-        flex: 0 0 auto;
-        background: rgba(0, 0, 0, 0.52);
-        border-radius: 0.5px;
-      }
-
-      .manifiesto-line__peek {
-        order: 2;
-        width: clamp(6.25rem, 15vw, 10.5rem);
-        height: clamp(6.25rem, 15vw, 10.5rem);
-        object-fit: cover;
-        flex: 0 0 auto;
-        margin-left: 0.1rem;
-        border: 1px solid rgba(0, 0, 0, 0.28);
-        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
-        transform: rotate(130deg);
-      }
-
-      /* Titileo sincronizado en “manifiesto” (m + resto) */
-      .manifiesto-line__m-text,
-      .manifiesto-line__rest-text {
-        animation: manifiesto-mockup-glitch 0.72s steps(1, end) infinite;
-      }
-
-      @keyframes manifiesto-mockup-glitch {
-        0% {
-          opacity: 1;
-          filter: none;
-        }
-        12% {
-          opacity: 0.92;
-          filter: contrast(1.15);
-        }
-        24% {
-          opacity: 0.08;
-          filter: brightness(1.2);
-        }
-        36% {
-          opacity: 1;
-          filter: none;
-        }
-        48% {
-          opacity: 0.15;
-        }
-        60% {
-          opacity: 1;
-        }
-        72% {
-          opacity: 0.06;
-          filter: contrast(1.35);
-        }
-        84% {
-          opacity: 0.95;
-          filter: none;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-
-      .manifiesto-line__peek {
-        animation-name: manifiesto-mockup-glitch, manifiesto-peek-nudge;
-        animation-duration: 0.72s, 0.72s;
-        animation-timing-function: steps(1, end), steps(1, end);
-        animation-iteration-count: infinite, infinite;
-        will-change: opacity, transform, filter;
-      }
-
-      @keyframes manifiesto-peek-nudge {
+      @keyframes manifiesto-glitch {
         0%,
         100% {
-          transform: rotate(130deg) translate(0, 0);
+          opacity: 1;
+          transform: translate(0, 0);
+          text-shadow: none;
+          filter: none;
+        }
+        4% {
+          opacity: 0;
+        }
+        8% {
+          opacity: 1;
+        }
+        12% {
+          opacity: 0.35;
+        }
+        16% {
+          opacity: 1;
+          text-shadow: 3px 0 0 rgba(200, 50, 50, 0.55),
+            -2px 0 0 rgba(40, 80, 220, 0.45);
+        }
+        20% {
+          text-shadow: -2px 0 0 rgba(200, 50, 50, 0.45),
+            2px 0 0 rgba(40, 80, 220, 0.5);
+          transform: translate(-1px, 0);
         }
         24% {
-          transform: rotate(130deg) translate(2px, -2px);
+          text-shadow: none;
+          transform: translate(1px, 0);
         }
-        72% {
-          transform: rotate(130deg) translate(-2px, 1px);
+        28% {
+          opacity: 0.5;
+          transform: translate(0, 0);
+        }
+        32% {
+          opacity: 1;
+          filter: contrast(1.25);
+        }
+        36% {
+          filter: none;
+        }
+        40% {
+          opacity: 0.12;
+        }
+        44% {
+          opacity: 1;
         }
       }
 
       @media (prefers-reduced-motion: reduce) {
-        .manifiesto-line__m-text,
-        .manifiesto-line__rest-text,
-        .manifiesto-line__peek {
+        .section-split__text a.manifiesto-link {
           animation: none;
         }
       }
@@ -425,6 +342,24 @@
           -webkit-filter: url(#ibv-text-rough-soft);
           text-shadow: 1.1px 0 0 rgba(200, 40, 40, 0.218),
             -1.1px 0 0 rgba(40, 70, 200, 0.218);
+        }
+      }
+
+      /* Por encima del cartel roto: manifiesto nítido + glitch del enlace */
+      .section-split__text-wrap.section-split__text-wrap--plain .section-split__text {
+        transform: none;
+        filter: none;
+        -webkit-filter: none;
+        opacity: 1;
+        text-shadow: none;
+        will-change: auto;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .section-split__text-wrap.section-split__text-wrap--plain .section-split__text {
+          transform: none;
+          filter: none;
+          -webkit-filter: none;
         }
       }
 
@@ -801,25 +736,7 @@
             <span class="poster-line poster-line--manifiesto">
               <span class="manifiesto-line__inner">
                 <span class="manifiesto-line__prefix">un </span>
-                <a href="informacion.html" class="manifiesto-line__hit">
-                  <span class="manifiesto-line__word">
-                    <span class="manifiesto-line__m-anchor">
-                      <span class="manifiesto-line__m-text">m</span>
-                      <span class="manifiesto-line__arm" aria-hidden="true">
-                        <img
-                          class="manifiesto-line__peek"
-                          src="imagen1.jpg"
-                          alt=""
-                          width="160"
-                          height="160"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                        <span class="manifiesto-line__beam"></span>
-                      </span>
-                    </span><span class="manifiesto-line__rest-text">anifiesto</span>
-                  </span>
-                </a>
+                <a href="informacion.html" class="manifiesto-link">manifiesto</a>
                 <span class="manifiesto-line__suffix"> audiovisual</span>
               </span>
             </span>
