@@ -117,28 +117,52 @@
         text-underline-offset: 0.2em;
       }
 
-      .taller-panel {
-        position: relative;
-        width: 100%;
-        height: 100vh;
-        height: 100dvh;
-        min-height: 100vh;
-        min-height: 100dvh;
-        margin: 0;
-        padding: 0;
+      /* Dos vídeos en paralelo, marcos cuadrados sobre negro */
+      .talleres-main {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        gap: clamp(1rem, 3.5vw, 2.75rem);
+        min-height: calc(100dvh - 5.25rem);
+        padding: clamp(1.25rem, 4vw, 2.5rem);
         background: #000;
+      }
+
+      .taller-tile {
+        flex: 1 1 0;
+        min-width: 0;
+        width: 100%;
+        max-width: min(42vw, 520px);
+        aspect-ratio: 1 / 1;
+        background: #000;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         overflow: hidden;
       }
 
-      /* contain = encuadre completo del clip, sin zoom/recorte (barras negras si el ratio no coincide) */
-      .taller-panel video {
+      .taller-tile video {
         display: block;
         width: 100%;
         height: 100%;
-        max-width: 100%;
-        max-height: 100%;
         object-fit: contain;
         object-position: center;
+      }
+
+      @media (max-width: 900px) {
+        .talleres-main {
+          flex-wrap: wrap;
+          min-height: auto;
+          padding-bottom: 2.5rem;
+        }
+
+        .taller-tile {
+          max-width: min(88vw, 420px);
+        }
       }
     </style>
   </head>
@@ -172,77 +196,27 @@
       </nav>
     </header>
 
-    <main aria-label="Talleres">
-      <section
-        id="taller-panel-1"
-        class="taller-panel"
-        aria-label="Taller BRUTA — parte uno"
-      >
+    <main class="talleres-main" aria-label="Talleres">
+      <div class="taller-tile" aria-label="Taller BRUTA — uno">
         <video
-          id="video-taller-1"
           src="tallerbruta1.mp4"
           playsinline
           muted
           autoplay
+          loop
           preload="auto"
         ></video>
-      </section>
-      <section
-        id="taller-panel-2"
-        class="taller-panel"
-        aria-label="Taller BRUTA — parte dos"
-      >
+      </div>
+      <div class="taller-tile" aria-label="Taller BRUTA — dos">
         <video
-          id="video-taller-2"
           src="Taller BRUTA 2.mp4"
           playsinline
           muted
+          autoplay
+          loop
           preload="auto"
         ></video>
-      </section>
+      </div>
     </main>
-
-    <script>
-      (function () {
-        var v1 = document.getElementById("video-taller-1");
-        var v2 = document.getElementById("video-taller-2");
-        var p2 = document.getElementById("taller-panel-2");
-        if (!v1 || !v2 || !p2) return;
-
-        var reduceMotion = window.matchMedia(
-          "(prefers-reduced-motion: reduce)"
-        ).matches;
-
-        function tryPlayMuted(el) {
-          el.muted = true;
-          var p = el.play();
-          if (p && p.catch) {
-            p.catch(function () {});
-          }
-        }
-
-        v1.addEventListener("ended", function () {
-          p2.scrollIntoView({
-            behavior: reduceMotion ? "auto" : "smooth",
-            block: "start",
-          });
-          v2.currentTime = 0;
-          v2.muted = true;
-          var playSecond = v2.play();
-          if (playSecond && playSecond.catch) {
-            playSecond.catch(function () {
-              tryPlayMuted(v2);
-            });
-          }
-        });
-
-        var first = v1.play();
-        if (first && first.catch) {
-          first.catch(function () {
-            tryPlayMuted(v1);
-          });
-        }
-      })();
-    </script>
   </body>
 </html>
