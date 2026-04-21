@@ -330,27 +330,29 @@
         vertical-align: top;
       }
 
-      /* Texto sobre vídeo: pantalla completa (100vh), texto centrado arriba del plano */
+      /* Vídeo IBM: tamaño contenido, centrado, marco blanco (sin cover a pantalla) */
       .section-split__text-video-outer {
         width: 100vw;
         max-width: none;
         margin-left: calc(50% - 50vw);
         margin-right: calc(50% - 50vw);
-        padding: 0;
+        padding: clamp(2.5rem, 8vw, 5rem) clamp(1.25rem, 4vw, 2rem);
+        background: #fff;
         /* Cierra el hueco del padding inferior de .section-split para pegar al footer */
         margin-bottom: calc(-1 * clamp(4rem, 10vw, 6rem));
       }
 
       .section-split__text-video {
         position: relative;
-        min-height: 100vh;
-        min-height: 100dvh;
-        height: 100vh;
-        height: 100dvh;
-        padding: 0;
-        overflow: hidden;
+        min-height: 0;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(1rem, 3vw, 2rem);
+        overflow: visible;
         border-radius: 0;
-        background: #111;
+        background: #fff;
       }
 
       /*
@@ -366,14 +368,17 @@
       }
 
       .section-split__text-video__video {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        position: relative;
+        inset: auto;
+        width: auto;
+        height: auto;
+        max-width: min(380px, 86vw);
+        max-height: min(42vh, 340px);
+        object-fit: contain;
         object-position: center;
         z-index: 0;
-        background: #111;
+        display: block;
+        background: transparent;
       }
 
       .video-extend__wing {
@@ -694,7 +699,7 @@
           </p>
         </div>
       </div>
-      <!-- Vídeo que antes estaba en el hero (pantalla completa, cover) -->
+      <!-- Vídeo IBM: centrado, tamaño contenido, fondo blanco -->
       <div class="section-split__text-video-outer">
         <div class="section-split__text-video">
           <video
