@@ -3,7 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BRUTA</title>
+    <title>IBV — Muestra web</title>
+    <meta
+      name="description"
+      content="Muestra web del estudio creativo IBV: manifiesto audiovisual, vídeos y propuesta de implementación. Experiencia pensada para escritorio."
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta name="color-scheme" content="dark" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="IBV — Muestra web" />
+    <meta
+      property="og:description"
+      content="Manifiesto audiovisual, portfolio de referencia y propuesta de web para el estudio IBV."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Crect x='8' y='8' width='16' height='3' fill='%23fff'/%3E%3Crect x='8' y='14' width='10' height='3' fill='%23fff'/%3E%3Crect x='8' y='20' width='12' height='3' fill='%23fff'/%3E%3C/svg%3E"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -21,6 +39,18 @@
         html {
           scroll-behavior: smooth;
         }
+      }
+
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
       }
 
       body {
@@ -534,6 +564,47 @@
         font-weight: 600;
       }
 
+      .sample-cta__h2 {
+        margin: 0.5rem 0 0;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #c5c5c5;
+      }
+
+      .sample-cta__h2:first-of-type {
+        margin-top: 0;
+      }
+
+      .sample-cta__list {
+        margin: 0.35rem 0 0;
+        padding: 0 0 0 1.15rem;
+        font-size: 0.8125rem;
+        line-height: 1.55;
+        color: #aaa;
+      }
+
+      .sample-cta__list li {
+        margin: 0.3rem 0;
+      }
+
+      .sample-cta__signed {
+        margin: 0;
+        text-align: center;
+        font-size: 0.75rem;
+        line-height: 1.6;
+        color: #8e8e8e;
+        max-width: 38rem;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .sample-cta__signed a {
+        color: #c8c8c8;
+        word-break: break-all;
+      }
+
       .sample-cta__price {
         text-align: center;
         margin: 1.75rem 0 1.5rem;
@@ -548,6 +619,7 @@
         align-items: center;
         gap: 1rem 1.25rem;
         justify-content: center;
+        margin-top: 1.75rem;
       }
 
       .sample-cta__by {
@@ -634,6 +706,7 @@
     </svg>
 
     <section class="hero" aria-label="Inicio">
+      <h1 class="visually-hidden">IBV — Muestra web</h1>
       <nav class="hero__nav" aria-label="Principal">
         <a class="hero__brand" href="index.html">IBV</a>
         <div class="hero__menu">
@@ -662,6 +735,7 @@
             muted
             loop
             playsinline
+            aria-label="Reel de fondo IBV"
           ></video>
         </div>
         <div class="video-extend__wing" aria-hidden="true">
@@ -706,7 +780,7 @@
           </p>
         </div>
       </div>
-      <!-- Vídeo IBM: centrado, tamaño contenido, fondo blanco -->
+      <!-- Vídeo IBV: centrado, tamaño contenido, fondo blanco -->
       <div class="section-split__text-video-outer">
         <div class="section-split__text-video">
           <video
@@ -716,53 +790,101 @@
             muted
             loop
             playsinline
+            aria-label="Vídeo manifiesto audiovisual IBV"
           ></video>
         </div>
       </div>
     </section>
 
-    <section class="sample-cta-wrap" aria-label="Sitio de muestra">
+    <section class="sample-cta-wrap" aria-label="Web IBV">
       <div class="sample-cta">
         <div class="sample-cta__top">
-          <span class="sample-cta__label">Sitio de muestra</span>
+          <span class="sample-cta__label">Web IBV</span>
           <span class="sample-cta__rule" aria-hidden="true"></span>
           <div class="sample-cta__copy">
+            <h2 class="sample-cta__h2">Naturaleza del proyecto</h2>
             <p class="sample-cta__desc">
-              Muestra para el estudio creativo <strong>IBV</strong>, tomando
-              como referencia sitios de estudios internacionales y el material
-              audiovisual publicado en el Instagram de IBV. El propósito es
-              ofrecer una <strong>base navegable</strong> del futuro sitio: un
-              punto de partida para <strong>proyectar</strong> arquitectura,
-              tono visual y prioridades de contenido, y
-              <strong>co-crear</strong> el producto final junto a quienes
-              lideran el negocio.
+              Lo que ves es una maqueta funcional y dinámica. Esta web es una
+              muestra inicial diseñada para que podamos visualizar el potencial
+              de <strong>IBV</strong> en el entorno digital. Está realizada con
+              los materiales audiovisuales de IBV mostrados en su Instagram.
+              Esta web es 100% modificable y editable: desde la tipografía y los
+              colores hasta la estructura completa y las interacciones. El
+              objetivo es que esta base evolucione hasta alinearse exactamente
+              con la visión y los objetivos que los ejecutores de IBV tengan
+              para su proyecto. Esta web está pensada puramente para
+              computadoras, ya que es solo una muestra: no está diseñada la
+              versión móvil.
             </p>
-            <p class="sample-cta__tech">
-              <strong>Implementación:</strong> HTML5 semántico; CSS3 (Flexbox,
-              Grid, unidades <code>vh</code>/<code>clamp()</code>, capas con
-              <code>z-index</code>, hero <code>position: fixed</code> + bloque
-              que “sube” al scroll); tipografía vía Google Fonts (Inter,
-              Oswald); tratamiento de texto con filtros SVG
-              (<code>feGaussianBlur</code>) y sombras; vídeo en hero y secciones
-              (<code>autoplay</code> <code>muted</code> <code>loop</code>
-              <code>playsinline</code>); sin framework de UI ni bundler.
-              <strong>Deploy:</strong> sitio estático servido desde
-              <code>public/</code> en <strong>Vercel</strong>, integración
-              <strong>GitHub → CI</strong> (push a <code>main</code>).
+            <h2 class="sample-cta__h2">Potencial de transformación</h2>
+            <p class="sample-cta__desc">
+              No estamos limitados por esta estructura: la web está hecha
+              completamente desde cero con código. Podemos:
+            </p>
+            <ul class="sample-cta__list">
+              <li>
+                Rediseñar secciones completas según las prioridades de
+                transmisión de IBV.
+              </li>
+              <li>
+                Ajustar el tono visual para que refleje la sofisticación
+                técnica del procesamiento de imagen en vivo.
+              </li>
+              <li>
+                Co-crear la experiencia de usuario: mi rol es traducir las
+                ideas de los ejecutores de IBV en código limpio y funcional.
+              </li>
+            </ul>
+            <h2 class="sample-cta__h2">Compromiso de entrega y soporte</h2>
+            <p class="sample-cta__desc">
+              Para garantizar que lleguemos exactamente a donde el estudio quiera
+              llegar, la propuesta incluye:
+            </p>
+            <ul class="sample-cta__list">
+              <li>
+                <strong>Soporte técnico de adaptación:</strong> 3 meses de
+                ajustes de código para pulir detalles y perfeccionar el sitio.
+              </li>
+              <li>
+                <strong>Evolución post-lanzamiento:</strong> 1 mes de
+                incorporación de secciones nuevas a partir del feedback inicial
+                del mercado.
+              </li>
+              <li>
+                <strong>Capacitación de gestión:</strong> entrega de
+                herramientas para que el equipo pueda actualizar sus piezas de
+                video de manera autónoma.
+              </li>
+            </ul>
+            <h2 class="sample-cta__h2">Inversión sugerida</h2>
+            <p class="sample-cta__desc">
+              El presupuesto para la implementación, personalización total y
+              acompañamiento técnico se sitúa en un rango de
+              <strong>360 a 480 USD</strong> (negociable según la complejidad de
+              las nuevas funciones que decidamos integrar).
             </p>
           </div>
         </div>
-        <p class="sample-cta__price">
-          Valor entre 320 y 380 USD negociable
+        <p class="sample-cta__price">360 a 480 USD (negociable)</p>
+        <p class="sample-cta__signed">
+          Web Realizada por Enzo Federico Bruno. Soy músico, desarrollador web
+          y actualmente estoy iniciando un negocio de dispositivos de audio,
+          ahora desarrollando dispositivos MIDI, y noto que ustedes los utilizan
+          en su trabajo! Encontré a IBV en Instagram y me pareció muy bueno
+          crear una web ya que sus creaciones permiten un vuelo que no está
+          siempre disponible en la creación de una web. Este es el primer
+          proyecto en donde me adentro tanto en la gestión de video en una web y
+          en el diseño de estos manifiestos dentro de la web para que el
+          resultado sea una transmisión de lo que genera IBV. Les dejo el link de
+          mi portfolio, muchas gracias y saludos!!
         </p>
         <div class="sample-cta__foot">
-          <span class="sample-cta__by">Realizado por</span>
           <a
             class="sample-cta__btn"
-            href="https://portfolio-web-11.vercel.app/"
+            href="https://portfolio-web-11.vercel.app/?utm_source=ig&amp;utm_medium=social&amp;utm_content=link_in_bio&amp;fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnEggSgOmBFIat2Bsm1oeh3SgRcyvxPDzQPBi_bV9QfVDEW4Nn1mlv-wuaY3g_aem_wEJ5qNG9pfwhUYDqjWGrCw"
             target="_blank"
             rel="noopener noreferrer"
-            >Enzo Federico — Portfolio</a
+            >Portfolio — Enzo Federico</a
           >
         </div>
       </div>
@@ -856,7 +978,17 @@
           }
 
           tick();
-          setInterval(tick, ms);
+          var glitchTimer = setInterval(tick, ms);
+          document.addEventListener("visibilitychange", function () {
+            if (document.hidden) {
+              clearInterval(glitchTimer);
+              el.style.setProperty("opacity", "1", "important");
+              el.style.setProperty("text-shadow", "none", "important");
+              el.style.setProperty("filter", "none", "important");
+            } else {
+              glitchTimer = setInterval(tick, ms);
+            }
+          });
 
           el.addEventListener("mouseenter", function () {
             paused = true;

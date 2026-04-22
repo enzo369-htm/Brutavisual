@@ -3,7 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Información — BRUTA</title>
+    <title>Información — IBV</title>
+    <meta
+      name="description"
+      content="Contexto, imagen y vídeo de referencia del proyecto creativo IBV. Experiencia pensada para escritorio."
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Información — IBV" />
+    <meta
+      property="og:description"
+      content="Manifiesto visual y material de referencia del estudio IBV."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Crect x='8' y='8' width='16' height='3' fill='%23fff'/%3E%3Crect x='8' y='14' width='10' height='3' fill='%23fff'/%3E%3Crect x='8' y='20' width='12' height='3' fill='%23fff'/%3E%3C/svg%3E"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,6 +33,18 @@
       *::before,
       *::after {
         box-sizing: border-box;
+      }
+
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
       }
 
       body {
@@ -57,6 +87,7 @@
           background: #0a0a0a;
           color: #f0f0f0;
           text-align: center;
+          -webkit-overflow-scrolling: touch;
         }
 
         .desktop-only-gate__inner {
@@ -229,7 +260,7 @@
     </div>
 
     <header class="site-top">
-      <a class="site-top__brand" href="index.html">BRUTA</a>
+      <a class="site-top__brand" href="index.html">IBV</a>
       <nav class="site-top__menu" aria-label="Principal">
         <a href="index.html">Proyectos</a>
         <a href="informacion.html" aria-current="page">Información</a>
@@ -240,6 +271,7 @@
     </header>
 
     <main class="page-info" aria-label="Información">
+      <h1 class="visually-hidden">Información del proyecto</h1>
       <div class="page-info__inner">
         <img
           class="page-info__media"
@@ -259,6 +291,7 @@
             muted
             loop
             playsinline
+            aria-label="Vídeo de contexto del proyecto IBV"
           ></video>
         </div>
       </div>
